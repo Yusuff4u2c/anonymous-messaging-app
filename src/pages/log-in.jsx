@@ -37,13 +37,11 @@ const Login = () => {
                 className="outline-none bg-transparent w-[400px] pb-5 my-5 border-b-2"
               />
             </div>
-            <Button
-              title={
-                <div className="flex justify-center gap-3 items-center">
-                  Log in <FaLongArrowAltRight />
-                </div>
-              }
-            />
+            <Button>
+              <div className="flex justify-center gap-3 items-center">
+                Log in <FaLongArrowAltRight />
+              </div>
+            </Button>
           </form>
           <a className="text-gray-500" href="#">
             Forgot Password

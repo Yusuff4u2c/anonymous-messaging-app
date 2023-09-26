@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import logoIcon from "../assets/image/logo-icon.png";
 import { Link } from "react-router-dom";
 import Home from "./home";
+import Button from "../components/button";
 
 const Registration = () => {
   const [regData, setRegData] = useState({
@@ -84,12 +85,7 @@ const Registration = () => {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="mt-5 w-[400px] rounded-full p-3 mx-auto bg-gradient-to-r from-[rgb(168,40,168)] from-10% to-[#7a4cc4]"
-              >
-                Register Account
-              </button>
+              <Button>Register Account</Button>
             </form>
             <a className="text-gray-500" href="#">
               Already Have an Account? Log in
