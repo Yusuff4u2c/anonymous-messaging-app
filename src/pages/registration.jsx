@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
@@ -17,12 +17,17 @@ const regSchema = Yup.object().shape({
 
 const Registration = () => {
   const navigate = useNavigate();
-  const { handleSubmit, register, reset } = useForm({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       username: "",
       email: "",
       password: "",
     },
+    resolver: yupResolver(regSchema),
   });
 
   async function onSubmit(data) {
@@ -48,7 +53,8 @@ const Registration = () => {
               id="user-name"
               placeholder="Enter your username"
               {...register("username")}
-            />{" "}
+              error={errors.username?.message}
+            />
           </div>
           <div className="mb-5">
             <label className="block mb-2" htmlFor="email">
@@ -59,6 +65,7 @@ const Registration = () => {
               id="email"
               placeholder="Enter your email"
               {...register("email")}
+              error={errors.email?.message}
             />{" "}
           </div>
           <div className="mb-5">
@@ -70,6 +77,7 @@ const Registration = () => {
               id="password"
               placeholder="Enter your password"
               {...register("password")}
+              error={errors.password?.message}
             />
           </div>
 
