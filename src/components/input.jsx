@@ -1,4 +1,6 @@
-const Input = ({ className = "", error, ...props }) => {
+import React from "react";
+
+const Input = React.forwardRef(({ className = "", error, ...props }, ref) => {
   return (
     <>
       <input
@@ -6,10 +8,13 @@ const Input = ({ className = "", error, ...props }) => {
           error ? "border-red-500" : ""
         }`}
         {...props}
+        ref={ref}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
     </>
   );
-};
+});
+
+Input.displayName = Input;
 
 export default Input;

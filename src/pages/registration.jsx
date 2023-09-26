@@ -5,48 +5,30 @@ import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Input from "../components/input";
+import { useForm } from "react-hook-form";
+
+const regSchema = Yup.object().shape({
+  username: Yup.string().required("Username is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string()
+    .min(5, "password must be at least 5 characters")
+    .required("password is required"),
+});
 
 const Registration = () => {
   const navigate = useNavigate();
-  const [regData, setRegData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const [errorData, setErrorData] = useState({
-    username: "",
-    email: "",
-    password: "",
+  const { handleSubmit, register, reset } = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
   });
 
-  const regSchema = Yup.object().shape({
-    username: Yup.string().required("Username is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .min(5, "password must be at least 5 characters")
-      .required("password is required"),
-  });
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setRegData({ ...regData, [name]: value });
-  }
-  async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      await regSchema.validate(regData, { abortEarly: false });
-      toast.success("User Registration Complete. Proceed to Login");
-      navigate("/login");
-    } catch (error) {
-      if (error.inner) {
-        error.inner.forEach((validationError) => {
-          const { path, message } = validationError;
-          setErrorData((prevErrorData) => ({
-            ...prevErrorData,
-            [path]: message,
-          }));
-        });
-      }
-    }
+  async function onSubmit(data) {
+    console.log(data);
+    toast.success("User Registration Complete. Proceed to Login");
+    // navigate("/login");
   }
 
   return (
@@ -56,7 +38,7 @@ const Registration = () => {
           <img src={logoIcon} alt="" />
         </div>
         <h1 className="text-4xl">Register</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-5">
             <label htmlFor="user-name" className="block mb-2  ">
               Your Username
@@ -64,11 +46,8 @@ const Registration = () => {
             <Input
               type="text"
               id="user-name"
-              name="username"
-              value={regData.username}
-              onChange={handleChange}
               placeholder="Enter your username"
-              error={errorData.username}
+              {...register("username")}
             />{" "}
           </div>
           <div className="mb-5">
@@ -78,25 +57,19 @@ const Registration = () => {
             <Input
               type="email"
               id="email"
-              name="email"
               placeholder="Enter your email"
-              value={regData.email}
-              onChange={handleChange}
-              error={errorData.email}
+              {...register("email")}
             />{" "}
           </div>
           <div className="mb-5">
-            <label className="block mb-2" htmlFor="psw">
+            <label className="block mb-2" htmlFor="password">
               Password
             </label>
             <Input
               type="password"
-              id="psw"
-              name="password"
-              value={regData.password}
-              onChange={handleChange}
+              id="password"
               placeholder="Enter your password"
-              error={errorData.password}
+              {...register("password")}
             />
           </div>
 
