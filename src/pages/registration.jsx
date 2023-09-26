@@ -4,10 +4,16 @@ import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Input from "../components/input";
 
 const Registration = () => {
   const navigate = useNavigate();
   const [regData, setRegData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [errorData, setErrorData] = useState({
     username: "",
     email: "",
     password: "",
@@ -26,13 +32,20 @@ const Registration = () => {
   }
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(regData);
     try {
       await regSchema.validate(regData, { abortEarly: false });
       toast.success("User Registration Complete. Proceed to Login");
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      if (error.inner) {
+        error.inner.forEach((validationError) => {
+          const { path, message } = validationError;
+          setErrorData((prevErrorData) => ({
+            ...prevErrorData,
+            [path]: message,
+          }));
+        });
+      }
     }
   }
 
@@ -44,40 +57,46 @@ const Registration = () => {
         </div>
         <h1 className="text-4xl">Register</h1>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="user-name">Your Username</label> <br />
-            <input
+          <div className="mb-5">
+            <label htmlFor="user-name" className="block mb-2  ">
+              Your Username
+            </label>
+            <Input
               type="text"
               id="user-name"
               name="username"
               value={regData.username}
               onChange={handleChange}
               placeholder="Enter your username"
-              className="outline-none bg-transparent w-[400px] pb-5 my-5 border-b-2"
+              error={errorData.username}
             />{" "}
           </div>
-          <div>
-            <label htmlFor="email">Your Email</label> <br />
-            <input
+          <div className="mb-5">
+            <label className="block mb-2" htmlFor="email">
+              Your Email
+            </label>
+            <Input
               type="email"
               id="email"
               name="email"
               placeholder="Enter your email"
               value={regData.email}
               onChange={handleChange}
-              className="outline-none bg-transparent w-[400px] pb-5 my-5 border-b-2"
+              error={errorData.email}
             />{" "}
           </div>
-          <div>
-            <label htmlFor="psw">Password</label> <br />
-            <input
+          <div className="mb-5">
+            <label className="block mb-2" htmlFor="psw">
+              Password
+            </label>
+            <Input
               type="password"
               id="psw"
               name="password"
               value={regData.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              className="outline-none bg-transparent w-[400px] pb-5 my-5 border-b-2"
+              error={errorData.password}
             />
           </div>
 
