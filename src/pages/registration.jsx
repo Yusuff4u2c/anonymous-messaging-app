@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Input from "../components/input";
 import { useForm } from "react-hook-form";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseApp } from "../libs/firebase";
 
 const regSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -14,6 +16,8 @@ const regSchema = Yup.object().shape({
     .min(5, "password must be at least 5 characters")
     .required("password is required"),
 });
+
+const firebaseAuth = getAuth(firebaseApp);
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -31,9 +35,19 @@ const Registration = () => {
   });
 
   async function onSubmit(data) {
-    console.log(data);
-    toast.success("User Registration Complete. Proceed to Login");
-    // navigate("/login");
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        data.email,
+        data.password
+      );
+      // console.log(userCredential.user);
+      toast.success("User Registration Complete. Proceed to Login");
+      navigate("/login");
+    } catch (error) {
+      const errorCode = error.code;
+      toast.error(errorCode);
+    }
   }
 
   return (
@@ -42,6 +56,7 @@ const Registration = () => {
         <div>
           <img src={logoIcon} alt="" />
         </div>
+
         <h1 className="text-4xl">Register</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-5">
