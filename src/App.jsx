@@ -1,5 +1,4 @@
-import { createContext, useState } from "react";
-import { BrowserRouter, Outlet, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import Navigation from "./components/navigation";
 import Landing from "./pages/landing";
 import Footer from "./components/footer";
@@ -13,6 +12,7 @@ import ChangePassword from "./pages/change-password";
 import ChangeEmail from "./pages/change-email";
 import Disclaimer from "./pages/disclaimer";
 import { AppProvider } from "./contexts/AppContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   function Layout() {
@@ -43,6 +43,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        <Toaster />
       </AppProvider>
     </>
   );
