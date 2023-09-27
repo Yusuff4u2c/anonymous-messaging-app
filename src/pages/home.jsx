@@ -29,14 +29,11 @@ const Home = () => {
           </p>
           <div className="border-b-2 flex flex-col pb-6 text-center">
             <Link to="/messages">
-              <Button
-                className="mb-3"
-                title={
-                  <div className="flex justify-center gap-3 items-center">
-                    View Messages <FaLongArrowAltRight />
-                  </div>
-                }
-              />
+              <Button>
+                <div className="flex justify-center gap-3 items-center">
+                  View Messages <FaLongArrowAltRight />
+                </div>
+              </Button>
             </Link>
             <Link>
               <a className="bg-[rgb(218,48,90)] flex justify-center items-center gap-4 my-3 p-3 rounded-lg hover:bg-gradient-to-r from-[rgb(212,39,160)] from-10% to-[#7a4cc4]">
@@ -72,14 +69,11 @@ const Home = () => {
             </Link>
           </div>
           <Link to="/settings">
-            <Button
-              className=" my-3"
-              title={
-                <div className="flex  justify-center gap-3 items-center">
-                  Settings <FaCogs />
-                </div>
-              }
-            />
+            <Button>
+              <div className="flex  justify-center gap-3 items-center">
+                Settings <FaCogs />
+              </div>
+            </Button>
           </Link>
         </div>
       </div>

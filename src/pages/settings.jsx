@@ -22,76 +22,59 @@ const Settings = () => {
         </div>
         <h1 className="text-4xl">Settings</h1>
         <div className="border-b-2 border-[rgb(142,28,177)] flex flex-col pb-6 text-center">
-          <Button
-            title={
-              <div className="flex  justify-center gap-3 items-center">
-                View Archived Answers <FaToolbox />
-              </div>
-            }
-          />
+          <Button>
+            <div className="flex  justify-center gap-3 items-center">
+              View Archived Answers <FaToolbox />
+            </div>
+          </Button>
           <Link to="/change-email">
-            <Button
-              title={
-                <div className="flex  justify-center gap-3 items-center">
-                  Change Email <FaEnvelope />
-                </div>
-              }
-            />
+            <Button>
+              <div className="flex  justify-center gap-3 items-center">
+                Change Email <FaEnvelope />
+              </div>
+            </Button>
           </Link>
           <Link to="/change-password">
-            <Button
-              title={
-                <div className="flex  justify-center gap-3 items-center">
-                  Change Password <FaKey />
-                </div>
-              }
-            />
+            <Button>
+              <div className="flex  justify-center gap-3 items-center">
+                Change Password <FaKey />
+              </div>
+            </Button>
           </Link>
 
           <Link to="/change-username">
-            <Button
-              title={
-                <div className="flex  justify-center gap-3 items-center">
-                  Change Username <FaUser />
-                </div>
-              }
-            />
+            <Button>
+              <div className="flex  justify-center gap-3 items-center">
+                Change Username <FaUser />
+              </div>
+            </Button>
           </Link>
           <Link to="/disclaimer">
-            <Button
-              title={
-                <div className="flex  justify-center gap-3 items-center">
-                  Disclaimer <FaInfoCircle />
-                </div>
-              }
-            />
-          </Link>
-          <Button
-            title={
+            <Button>
               <div className="flex  justify-center gap-3 items-center">
-                Contact Us <FaQuestionCircle />
+                Disclaimer <FaInfoCircle />
               </div>
-            }
-          />
+            </Button>
+          </Link>
+          <Button>
+            <div className="flex  justify-center gap-3 items-center">
+              Contact Us <FaQuestionCircle />
+            </div>
+          </Button>
           <Link to="/login">
-            <Button
-              title={
-                <div className="flex  justify-center gap-3 items-center">
-                  Log Out <FaPowerOff />
-                </div>
-              }
-            />
+            <Button>
+              <div className="flex  justify-center gap-3 items-center">
+                Log Out <FaPowerOff />
+              </div>
+            </Button>
           </Link>
         </div>
-        <Link onClick={() => navigate(-1)}>
-          <Button
-            className="my-3"
-            title={
-              <div className="flex w-full justify-center gap-3 items-center">
-                <FaLongArrowAltLeft /> Go Back
-              </div>
-            }
-          />
+        <Link to="/home">
+          <Button>
+            <div className="flex w-full justify-center gap-3 items-center">
+              <FaLongArrowAltLeft /> Go Back
+            </div>
+          </Button>
         </Link>
       </div>
     </div>

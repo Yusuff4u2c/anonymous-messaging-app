@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
+import { Link } from "react-router-dom";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 const Login = () => {
@@ -50,12 +51,14 @@ const Login = () => {
               </div>
             </Button>
           </form>
-          <a className="text-gray-500" href="#">
-            Forgot Password
-          </a>
-          <a className="text-gray-500 my-0" href="#">
-            Don't Have an Account? Register
-          </a>
+          <Link to="/forgotpassword">
+            <a className="text-gray-500">Forgot Password</a>
+          </Link>
+          <Link to="/register">
+            <a className="text-gray-500 my-0">
+              Don't Have an Account? Register
+            </a>
+          </Link>
         </div>
       </div>
     </div>

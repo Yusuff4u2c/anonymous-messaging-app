@@ -34,23 +34,18 @@ const Changeusername = () => {
               className="outline-none bg-transparent w-[400px] pb-5 my-5 border-b-2"
             />
           </div>
-          <Button
-            title={
-              <div className="flex  justify-center gap-3 items-center">
-                Change Username <FaLongArrowAltRight />
-              </div>
-            }
-          />
+          <Button>
+            <div className="flex  justify-center gap-3 items-center">
+              Change Username <FaLongArrowAltRight />
+            </div>
+          </Button>
         </form>
-        <Link onClick={() => navigate(-1)}>
-          <Button
-            className=" w-full my-3"
-            title={
-              <div className="flex w-full justify-center gap-3 items-center">
-                <FaLongArrowAltLeft /> Go Back
-              </div>
-            }
-          />
+        <Link to="/settings">
+          <Button className=" my-3">
+            <div className="flex w-full justify-center gap-3 items-center">
+              <FaLongArrowAltLeft /> Go Back
+            </div>
+          </Button>
         </Link>
       </div>
     </div>

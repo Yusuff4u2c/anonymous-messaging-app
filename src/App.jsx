@@ -13,6 +13,7 @@ import ChangeEmail from "./pages/change-email";
 import Disclaimer from "./pages/disclaimer";
 import { AppProvider } from "./contexts/AppContext";
 import { Toaster } from "react-hot-toast";
+import ForgotPassword from "./pages/forgot-password";
 
 function App() {
   function Layout() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route element={<Layout />}>
               <Route path="/login" element={<Login />} />
+              <Route path="/forgotpassword" element={<ForgotPassword />} />
               <Route path="/register" element={<Registration />} />
               <Route path="/home" element={<Home />} />
               <Route path="/messages" element={<Messages />} />

@@ -10,7 +10,9 @@ const Navigation = () => {
   return (
     <div>
       <nav className="bg-gradient-to-r from-[#be62be] from-25% to-[#7b45d3] py-6 px-16 text-white flex justify-between items-center">
-        <img className="w-23" src={homeLogo} alt="home logo" />
+        <Link to="/home">
+          <img className="w-23" src={homeLogo} alt="home logo" />
+        </Link>
         <ul className="flex gap-12 text-sm font-bold relative">
           <li>
             <Link to="/">HOME</Link>

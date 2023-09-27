@@ -4,7 +4,6 @@ import Button from "../components/button";
 import { Link, useNavigate } from "react-router-dom";
 
 const Disclaimer = () => {
-  const navigate = useNavigate();
   return (
     <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
       <div className="bg-[#250933] flex flex-col justify-center items-center gap-8 p-10 my-4 rounded-2xl">
@@ -35,15 +34,12 @@ const Disclaimer = () => {
           </p>
         </div>
 
-        <Link onClick={() => navigate(-1)}>
-          <Button
-            className=" my-3"
-            title={
-              <div className="flex w-full justify-center gap-3 items-center">
-                <FaLongArrowAltLeft /> Go Back
-              </div>
-            }
-          />
+        <Link to="/settings">
+          <Button className=" my-3">
+            <div className="flex w-full justify-center gap-3 items-center">
+              <FaLongArrowAltLeft /> Go Back
+            </div>
+          </Button>
         </Link>
       </div>
     </div>
