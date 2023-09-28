@@ -9,14 +9,17 @@ import {
   FaInstagram,
   FaCogs,
 } from "react-icons/fa";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
+  const { user } = useAuth();
+
   return (
     <div>
       <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
         <div className="bg-[#250933] flex flex-col justify-center items-center gap-8 p-10 my-4 rounded-2xl">
           <h1 className="text-4xl text-center">
-            Yusuff4u2c's <br />
+            {user?.email ?? "Nil"}'s <br />
             Profile
           </h1>
           <a href="">https://gdpd.xyz/yusuff4u2c </a>

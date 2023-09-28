@@ -14,6 +14,7 @@ import Disclaimer from "./pages/disclaimer";
 import { AppProvider } from "./contexts/AppContext";
 import { Toaster } from "react-hot-toast";
 import ForgotPassword from "./pages/forgot-password";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   function Layout() {
@@ -28,24 +29,26 @@ function App() {
   return (
     <>
       <AppProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route element={<Layout />}>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forgotpassword" element={<ForgotPassword />} />
               <Route path="/register" element={<Registration />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/messages" element={<Messages />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/change-email" element={<ChangeEmail />} />
-              <Route path="/change-username" element={<Changeusername />} />
-              <Route path="/change-password" element={<ChangePassword />} />
-              <Route path="/disclaimer" element={<Disclaimer />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-        <Toaster />
+              <Route element={<Layout />}>
+                <Route path="/home" element={<Home />} />
+                <Route path="/messages" element={<Messages />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/change-email" element={<ChangeEmail />} />
+                <Route path="/change-username" element={<Changeusername />} />
+                <Route path="/change-password" element={<ChangePassword />} />
+                <Route path="/disclaimer" element={<Disclaimer />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+          <Toaster />
+        </AuthProvider>
       </AppProvider>
     </>
   );

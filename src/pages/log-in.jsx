@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import Input from "../components/input";
 import { useState } from "react";
 import { AuthenticationService } from "../libs/services/AuthenticationService";
+import useAuth from "../hooks/useAuth";
 
 const logInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -20,6 +21,7 @@ const logInSchema = Yup.object().shape({
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { updateUser } = useAuth();
 
   const {
     handleSubmit,
@@ -37,6 +39,7 @@ const Login = () => {
     try {
       setLoading(true);
       const user = await AuthenticationService.login(data.email, data.password);
+      updateUser(user);
 
       toast.success("Login Succesful");
       navigate("/home");
