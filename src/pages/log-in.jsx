@@ -1,11 +1,53 @@
 import { useForm } from "react-hook-form";
 import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseApp } from "../libs/firebase";
+import Input from "../components/input";
+
+const logInSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string()
+    .min(5, "password must be at least 5 characters")
+    .required("password is required"),
+});
+
+const fireBaseAuth = getAuth(firebaseApp);
 
 const Login = () => {
-  const { handleSubmit, register } = useForm(); // 1
+  const navigate = useNavigate();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(logInSchema),
+  }); // 1
+
+  async function onSubmit(data) {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        fireBaseAuth,
+        data.email,
+        data.password
+      );
+
+      toast.success("Login Succesful");
+      navigate("/home");
+    } catch (error) {
+      const errorCode = error.code;
+      toast.error(errorCode);
+    }
+  }
 
   return (
     <div>
@@ -20,29 +62,30 @@ const Login = () => {
             anonymous messages to your friends for free.
           </p>
           <form
-            onSubmit={handleSubmit((data) => console.log(data))} // 2.
-            className=""
+            onSubmit={handleSubmit(onSubmit)} // 2.
           >
             <div>
-              <label htmlFor="user-name">Your Username</label> <br />
-              <input
-                type="text"
-                id="user-name"
-                placeholder="Enter your username"
+              <label htmlFor="user-name">Your Email</label> <br />
+              <Input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
                 className="outline-none bg-transparent w-[400px] pb-5 my-5 border-b-2"
-                {...register("username")} // 3.
-              />{" "}
+                {...register("email")}
+                error={errors.email?.message}
+              />
             </div>
 
             <div>
               <label htmlFor="psw">Password</label> <br />
-              <input
+              <Input
                 type="password"
                 id="psw"
-                name="psw"
+                suggested="password"
                 placeholder="Enter your password"
                 className="outline-none bg-transparent w-[400px] pb-5 my-5 border-b-2"
-                {...register("password")} // 3.
+                {...register("password")}
+                error={errors.password?.message}
               />
             </div>
             <Button type="submit">
@@ -51,13 +94,11 @@ const Login = () => {
               </div>
             </Button>
           </form>
-          <Link to="/forgotpassword">
-            <a className="text-gray-500">Forgot Password</a>
+          <Link to="/forgotpassword" className="text-gray-500">
+            Forgot Password
           </Link>
-          <Link to="/register">
-            <a className="text-gray-500 my-0">
-              Don't Have an Account? Register
-            </a>
+          <Link to="/register" className="text-gray-500 my-0">
+            Don't Have an Account? Register
           </Link>
         </div>
       </div>

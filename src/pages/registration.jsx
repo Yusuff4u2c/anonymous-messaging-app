@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Input from "../components/input";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ const regSchema = Yup.object().shape({
     .required("password is required"),
 });
 
-const firebaseAuth = getAuth(firebaseApp);
+const fireBaseAuth = getAuth(firebaseApp);
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Registration = () => {
   async function onSubmit(data) {
     try {
       const userCredential = await createUserWithEmailAndPassword(
-        firebaseAuth,
+        fireBaseAuth,
         data.email,
         data.password
       );
@@ -104,7 +104,7 @@ const Registration = () => {
         <p className="text-sm">
           By using this service, you agree to our Privacy Policy, Terms of
           Service and any <br />
-          related policies. (Check Disclaimer)
+          related policies. <Link to="/disclaimer">(Check Disclaimer)</Link>
         </p>
       </div>
     </div>
