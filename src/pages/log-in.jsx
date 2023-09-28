@@ -36,7 +36,7 @@ const Login = () => {
   async function onSubmit(data) {
     try {
       setLoading(true);
-      await AuthenticationService.login(data.email, data.password);
+      const user = await AuthenticationService.login(data.email, data.password);
 
       toast.success("Login Succesful");
       navigate("/home");

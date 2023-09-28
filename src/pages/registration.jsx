@@ -8,6 +8,7 @@ import Input from "../components/input";
 import { useForm } from "react-hook-form";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseApp } from "../libs/firebase";
+import { AuthenticationService } from "../libs/services/AuthenticationService";
 
 const regSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -36,17 +37,12 @@ const Registration = () => {
 
   async function onSubmit(data) {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        fireBaseAuth,
-        data.email,
-        data.password
-      );
-      // console.log(userCredential.user);
+      await AuthenticationService.register(data.email, data.password);
+
       toast.success("User Registration Complete. Proceed to Login");
       navigate("/login");
     } catch (error) {
-      const errorCode = error.code;
-      toast.error(errorCode);
+      toast.error(error.message);
     }
   }
 

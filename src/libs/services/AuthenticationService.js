@@ -1,33 +1,39 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "../firebase"
 
 export class AuthenticationService {
 
     static async login(email, password) {
         try {
-            return await signInWithEmailAndPassword(
+            const { user } = await signInWithEmailAndPassword(
+                firebaseAuth,
+                email,
+                password
+            );
+            // console.log(credentials);
+            
+            return { 
+                email: user.email, 
+                displayName: user.displayName, 
+                emailVerified: user.emailVerified, 
+                userId: user.uid 
+            }
+        } catch (error) {
+            console.log(error)
+            throw new Error(this.parseErrors(error.code))
+        }
+    }
+
+    static async register(email, password) {
+        try {
+            return await createUserWithEmailAndPassword(
                 firebaseAuth,
                 email,
                 password
             );
         } catch (error) {
-            const errorCode = error.code
-            let message = error.code
-            
-            switch (errorCode) {
-                case "auth/invalid-login-credentials":
-                    message = "Your email or password is incorrect"
-                    break;
-                default:
-                    break;
-            }
-            
-            throw new Error(message)
+            throw new Error(this.parseErrors(error.code))
         }
-    }
-
-    static register() {
-
     }
 
     static logout() {
@@ -40,5 +46,24 @@ export class AuthenticationService {
 
     static sendPasswordResetEmail() {
 
+    }
+
+    static parseErrors(errorCode) {
+        let message = errorCode
+            
+        switch (errorCode) {
+            case "auth/invalid-login-credentials":
+                message = "Your email or password is incorrect"
+                break;
+
+            case "auth/email-already-in-use":
+                message = "Email has already been taken."
+                break;
+
+            default:
+                break;
+        }
+
+        return message
     }
 }
