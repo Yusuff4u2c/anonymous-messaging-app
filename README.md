@@ -1,8 +1,9 @@
-# React + Vite
+# Anonymous App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Running the project
 
-Currently, two official plugins are available:
+Once the project has been setup, run this command to create `.env` file and fill it appropriately. You can contact your superior for the necessary credentials
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+cp .env.example .env
+```
