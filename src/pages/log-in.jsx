@@ -6,9 +6,9 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { firebaseApp } from "../libs/firebase";
 import Input from "../components/input";
+import { useState } from "react";
+import { AuthenticationService } from "../libs/services/AuthenticationService";
 
 const logInSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -17,10 +17,10 @@ const logInSchema = Yup.object().shape({
     .required("password is required"),
 });
 
-const fireBaseAuth = getAuth(firebaseApp);
-
 const Login = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const {
     handleSubmit,
     register,
@@ -35,17 +35,15 @@ const Login = () => {
 
   async function onSubmit(data) {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        fireBaseAuth,
-        data.email,
-        data.password
-      );
+      setLoading(true);
+      await AuthenticationService.login(data.email, data.password);
 
       toast.success("Login Succesful");
       navigate("/home");
     } catch (error) {
-      const errorCode = error.code;
-      toast.error(errorCode);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -64,7 +62,7 @@ const Login = () => {
           <form
             onSubmit={handleSubmit(onSubmit)} // 2.
           >
-            <div>
+            <div className="mb-5">
               <label htmlFor="user-name">Your Email</label> <br />
               <Input
                 type="email"
@@ -76,7 +74,7 @@ const Login = () => {
               />
             </div>
 
-            <div>
+            <div className="mb-5">
               <label htmlFor="psw">Password</label> <br />
               <Input
                 type="password"
@@ -88,7 +86,7 @@ const Login = () => {
                 error={errors.password?.message}
               />
             </div>
-            <Button type="submit">
+            <Button disabled={loading} type="submit">
               <div className="flex justify-center gap-3 items-center">
                 Log in <FaLongArrowAltRight />
               </div>
