@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
+import { getAuth, signOut } from "firebase/auth";
+import { firebaseApp } from "../libs/firebase";
 import {
   FaToolbox,
   FaEnvelope,
@@ -11,9 +13,23 @@ import {
   FaQuestionCircle,
   FaLongArrowAltLeft,
 } from "react-icons/fa";
+import toast from "react-hot-toast";
 
+const fireBaseAuth = getAuth(firebaseApp);
 const Settings = () => {
   const navigate = useNavigate();
+
+  async function handleLogOut() {
+    try {
+      await signOut(fireBaseAuth);
+      toast.success("Signed Out");
+      navigate("/login");
+    } catch (error) {
+      const errorCode = error.code;
+      toast.error(errorCode);
+    }
+  }
+
   return (
     <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
       <div className="bg-[#250933] flex flex-col justify-center items-center gap-8 p-10 my-4 rounded-2xl">
@@ -62,7 +78,7 @@ const Settings = () => {
             </div>
           </Button>
           <Link to="/login">
-            <Button>
+            <Button onClick={handleLogOut}>
               <div className="flex  justify-center gap-3 items-center">
                 Log Out <FaPowerOff />
               </div>
