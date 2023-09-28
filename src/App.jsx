@@ -15,9 +15,13 @@ import { AppProvider } from "./contexts/AppContext";
 import { Toaster } from "react-hot-toast";
 import ForgotPassword from "./pages/forgot-password";
 import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/protected-route";
 
 function App() {
   function Layout() {
+    // check if the user is logged in
+    // navigate to login page
+
     return (
       <>
         <Navigation />
@@ -33,11 +37,18 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Landing />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgotpassword" element={<ForgotPassword />} />
-              <Route path="/register" element={<Registration />} />
               <Route element={<Layout />}>
-                <Route path="/home" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/forgotpassword" element={<ForgotPassword />} />
+                <Route path="/register" element={<Registration />} />
+                <Route
+                  path="/home"
+                  element={
+                    <ProtectedRoute>
+                      <Home />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/change-email" element={<ChangeEmail />} />
