@@ -32,7 +32,7 @@ export class AuthenticationService {
                 password
             );
 
-            updateProfile(userCredential.user, {
+            await updateProfile(userCredential.user, {
                 displayName: username
             })
 

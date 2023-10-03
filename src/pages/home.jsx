@@ -8,24 +8,38 @@ import {
   FaWhatsapp,
   FaInstagram,
   FaCogs,
+  FaClipboard,
 } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
+import useCopyToClipboard from "../hooks/useCopyToClipboard";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const { user } = useAuth();
   const appUrl = import.meta.env.VITE_APP_URL;
+  const [, copy] = useCopyToClipboard();
 
   return (
     <div>
       <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
         <div className="bg-[#250933] flex flex-col justify-center items-center gap-8 p-10 my-4 rounded-2xl">
-          <h1 className="text-4xl text-center">
-            {user?.email ?? "Nil"}'s <br />
+          <h1 className="text-4xl text-center capitalize">
+            {user?.displayName ?? "Nil"}'s <br />
             Profile
           </h1>
-          <a href="">
-            {appUrl}/{user?.displayName}{" "}
-          </a>
+          <span className="flex items-center gap-1">
+            <a href={`/${user?.displayName}`} rel="noreferrer" target="_blank">
+              {appUrl}/{user?.displayName}
+            </a>
+            <FaClipboard
+              onClick={() => {
+                if (copy(`${appUrl}/${user?.displayName}`)) {
+                  toast("URL copied to clipboard");
+                }
+              }}
+              className="cursor-pointer"
+            />
+          </span>
           <p>
             <span className="font-bold">Share your profile link</span> ❤️ to get
             responses from your <br /> friend. Go to
