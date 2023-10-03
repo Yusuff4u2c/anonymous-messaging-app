@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail, updateProfile } from "firebase/auth";
 import { firebaseAuth } from "../firebase"
+import { DatabaseService } from "./DatabaseService";
 
 export class AuthenticationService {
 
@@ -10,7 +11,6 @@ export class AuthenticationService {
                 email,
                 password
             );
-            console.log(user);
             
             return { 
                 email: user.email, 
@@ -35,6 +35,9 @@ export class AuthenticationService {
             await updateProfile(userCredential.user, {
                 displayName: username
             })
+
+            // Save the user in our database
+            await DatabaseService.createUser({email, username});
 
             return userCredential;
         } catch (error) {
