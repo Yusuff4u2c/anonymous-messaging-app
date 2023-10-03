@@ -18,8 +18,6 @@ const regSchema = Yup.object().shape({
     .required("password is required"),
 });
 
-const fireBaseAuth = getAuth(firebaseApp);
-
 const Registration = () => {
   const navigate = useNavigate();
   const {
@@ -37,7 +35,11 @@ const Registration = () => {
 
   async function onSubmit(data) {
     try {
-      await AuthenticationService.register(data.email, data.password);
+      await AuthenticationService.register({
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      });
 
       toast.success("User Registration Complete. Proceed to Login");
       navigate("/login");

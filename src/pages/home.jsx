@@ -13,6 +13,7 @@ import useAuth from "../hooks/useAuth";
 
 const Home = () => {
   const { user } = useAuth();
+  const appUrl = import.meta.env.VITE_APP_URL;
 
   return (
     <div>
@@ -22,7 +23,9 @@ const Home = () => {
             {user?.email ?? "Nil"}'s <br />
             Profile
           </h1>
-          <a href="">https://gdpd.xyz/yusuff4u2c </a>
+          <a href="">
+            {appUrl}/{user?.displayName}{" "}
+          </a>
           <p>
             <span className="font-bold">Share your profile link</span> ❤️ to get
             responses from your <br /> friend. Go to

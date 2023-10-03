@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail, updateProfile } from "firebase/auth";
 import { firebaseAuth } from "../firebase"
 
 export class AuthenticationService {
@@ -10,7 +10,7 @@ export class AuthenticationService {
                 email,
                 password
             );
-            // console.log(credentials);
+            console.log(user);
             
             return { 
                 email: user.email, 
@@ -24,13 +24,19 @@ export class AuthenticationService {
         }
     }
 
-    static async register(email, password) {
+    static async register({username, email, password}) {
         try {
-            return await createUserWithEmailAndPassword(
+            const userCredential = await createUserWithEmailAndPassword(
                 firebaseAuth,
                 email,
                 password
             );
+
+            updateProfile(userCredential.user, {
+                displayName: username
+            })
+
+            return userCredential;
         } catch (error) {
             throw new Error(this.parseErrors(error.code))
         }
