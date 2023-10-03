@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
-import { getAuth, signOut } from "firebase/auth";
-import { firebaseApp } from "../libs/firebase";
+
 import {
   FaToolbox,
   FaEnvelope,
@@ -14,14 +13,14 @@ import {
   FaLongArrowAltLeft,
 } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { AuthenticationService } from "../libs/services/AuthenticationService";
 
-const fireBaseAuth = getAuth(firebaseApp);
 const Settings = () => {
   const navigate = useNavigate();
 
   async function handleLogOut() {
     try {
-      await signOut(fireBaseAuth);
+      await AuthenticationService.logout();
       toast.success("Signed Out");
       navigate("/login");
     } catch (error) {

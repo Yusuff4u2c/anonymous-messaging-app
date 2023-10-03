@@ -16,6 +16,7 @@ import { Toaster } from "react-hot-toast";
 import ForgotPassword from "./pages/forgot-password";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/protected-route";
+import MessageForm from "./pages/message-form";
 
 function App() {
   function Layout() {
@@ -24,7 +25,6 @@ function App() {
 
     return (
       <>
-        <Navigation />
         <Outlet />
         <Footer />
       </>
@@ -55,6 +55,7 @@ function App() {
                 <Route path="/change-username" element={<Changeusername />} />
                 <Route path="/change-password" element={<ChangePassword />} />
                 <Route path="/disclaimer" element={<Disclaimer />} />
+                <Route path="/message-form" element={<MessageForm />} />
               </Route>
             </Routes>
           </BrowserRouter>

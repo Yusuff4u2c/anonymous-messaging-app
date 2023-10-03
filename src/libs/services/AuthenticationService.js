@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { firebaseAuth } from "../firebase"
 
 export class AuthenticationService {
@@ -36,8 +36,12 @@ export class AuthenticationService {
         }
     }
 
-    static logout() {
-
+    static async logout() {
+        try { 
+            return signOut(firebaseAuth)    
+        } catch (error) {
+            throw new Error(this.parseErrors(error.code))
+        } 
     }
 
     static sendVerificationEmail() {
