@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import { firebaseAuth } from "../firebase"
 
 export class AuthenticationService {
@@ -45,11 +45,19 @@ export class AuthenticationService {
     }
 
     static sendVerificationEmail() {
-
+        try { 
+            return sendEmailVerification(firebaseAuth.currentUser)    
+        } catch (error) {
+            throw new Error(this.parseErrors(error.code))
+        } 
     }
 
-    static sendPasswordResetEmail() {
-
+    static sendPasswordResetEmail($email) {
+        try { 
+            return sendPasswordResetEmail(firebaseAuth, $email)    
+        } catch (error) {
+            throw new Error(this.parseErrors(error.code))
+        } 
     }
 
     static parseErrors(errorCode) {

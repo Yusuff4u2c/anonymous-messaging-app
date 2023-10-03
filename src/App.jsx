@@ -17,6 +17,7 @@ import ForgotPassword from "./pages/forgot-password";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/protected-route";
 import MessageForm from "./pages/message-form";
+import AuthRoute from "./components/auth-route";
 
 function App() {
   function Layout() {
@@ -33,34 +34,50 @@ function App() {
   return (
     <>
       <AppProvider>
-        <AuthProvider>
-          <BrowserRouter>
+        <BrowserRouter>
+          <AuthProvider>
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route element={<Layout />}>
-                <Route path="/login" element={<Login />} />
-                <Route path="/forgotpassword" element={<ForgotPassword />} />
-                <Route path="/register" element={<Registration />} />
                 <Route
-                  path="/home"
+                  path="/login"
                   element={
-                    <ProtectedRoute>
-                      <Home />
-                    </ProtectedRoute>
+                    <AuthRoute>
+                      <Login />
+                    </AuthRoute>
                   }
                 />
-                <Route path="/messages" element={<Messages />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/change-email" element={<ChangeEmail />} />
-                <Route path="/change-username" element={<Changeusername />} />
-                <Route path="/change-password" element={<ChangePassword />} />
+                <Route
+                  path="/forgotpassword"
+                  element={
+                    <AuthRoute>
+                      <ForgotPassword />
+                    </AuthRoute>
+                  }
+                />
+                <Route
+                  path="/register"
+                  element={
+                    <AuthRoute>
+                      <Registration />
+                    </AuthRoute>
+                  }
+                />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/messages" element={<Messages />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/change-email" element={<ChangeEmail />} />
+                  <Route path="/change-username" element={<Changeusername />} />
+                  <Route path="/change-password" element={<ChangePassword />} />
+                </Route>
                 <Route path="/disclaimer" element={<Disclaimer />} />
                 <Route path="/message-form" element={<MessageForm />} />
               </Route>
             </Routes>
-          </BrowserRouter>
-          <Toaster />
-        </AuthProvider>
+          </AuthProvider>
+        </BrowserRouter>
+        <Toaster />
       </AppProvider>
     </>
   );
