@@ -62,6 +62,7 @@ function App() {
                     </AuthRoute>
                   }
                 />
+                <Route path="/:username" element={<MessageForm />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/home" element={<Home />} />
                   <Route path="/messages" element={<Messages />} />
@@ -71,7 +72,6 @@ function App() {
                   <Route path="/change-password" element={<ChangePassword />} />
                 </Route>
                 <Route path="/disclaimer" element={<Disclaimer />} />
-                <Route path="/message-form" element={<MessageForm />} />
               </Route>
             </Routes>
           </AuthProvider>

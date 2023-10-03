@@ -5,14 +5,15 @@ import Input from "../components/input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const Message = () => {
-  const maxCharacter = 545;
+const MAX_CHARACTER_COUNT = 545;
+
+const MessageForm = () => {
   const [message, setMessage] = useState("");
 
   function handleChange(e) {
     const value = e.target.value;
 
-    if (value.length <= maxCharacter) {
+    if (value.length <= MAX_CHARACTER_COUNT) {
       setMessage(value);
     }
   }
@@ -26,27 +27,64 @@ const Message = () => {
           <p className="text-sm">
             Say Something About Me <span className="text-[red]">*</span>
           </p>
-          <input
+          <textarea
             type="text"
             id="message"
             placeholder="Leave a message for yusuff4u2c here.."
             className="outline-none bg-transparent w-[400px] border-none"
             onChange={handleChange}
+            rows={5}
           />
-          <p className="pb-1 my-14 border-b-2">
-            <span className="font-bold">{maxCharacter - message.length}</span>{" "}
+          <p className="pb-1 border-b-2">
+            <span className="font-bold">
+              {MAX_CHARACTER_COUNT - message.length}
+            </span>{" "}
             characters remaining
           </p>
           <Button type="submit">
-            <div className="flex justify-center gap-3 items-center">Log in</div>
+            <div className="flex justify-center gap-3 items-center">
+              Send Message
+            </div>
           </Button>
         </form>
+
+        <p className="max-w-[45ch]">
+          Say what do you think about yusuff4u2c or Leave a feedback for
+          yusuff4u2c anonymously using the form above.. 🥰 Thank You!! 😍😊
+        </p>
+
+        <p className="max-w-[45ch]">
+          Guide to write perfect Anonymous Messages by Kubool: With the help of
+          our anonymous message sender named Kubool now, you can easily message
+          your heart's desire to your friends, family members, and anyone you
+          know who are on Kubool. We care about our users and thus we are
+          suggesting what you may choose to tell them anonymously. Everyone in
+          this world loves to get affection from their loved ones be it their
+          parents, partners, or close friends. Tell them how much they matter to
+          you and how much you care for them! These compliments will increase
+          their positive feelings and they will feel your friendly love from the
+          core of their heart. If you feel like there is something you do not
+          like out of them, you may choose to constructively criticize them
+          about it. That is completely fine and in fact when constructive
+          criticism is delivered right, one can develop themselves accordingly
+          to become a better person as a whole. Make sure to be on point with
+          the criticism and make sure that it does not become an insult at the
+          end. You may also choose to suggest things that will help them become
+          a better person as a whole! Future predictions are tough, as shown by
+          the available future predictions apps just like the love predictions!
+          No one knows what is going to happen next. But, it is always good to
+          be aware of your cons, focuses on your pros, and transforming your
+          cons to your pros. That is exactly what good constructive criticism
+          helps you achieve! We hope you liked this little guide on how you can
+          write better anonymous messages which are going to be very productive.
+          Don't forget to play by the rules, keep it clean out there. 😉
+        </p>
       </div>
     </div>
   );
 };
 
-export default Message;
+export default MessageForm;
 
 // import { FaLongArrowAltLeft } from "react-icons/fa";
 // import logoIcon from "../assets/image/logo-icon.png";
