@@ -40,9 +40,8 @@ function NonUser({ username }) {
 const MessageForm = () => {
   const { username } = useParams();
   const [loading, setLoading] = useState(true);
-  const [userExists, setUserExists] = useState(false);
-
-  // check if the user is registered on our platform
+  const [processing, setProcessing] = useState(false);
+  const [user, setUser] = useState(null);
 
   const [message, setMessage] = useState("");
 
@@ -54,9 +53,28 @@ const MessageForm = () => {
     }
   }
 
+  async function handleMessageSubmission(e) {
+    e.preventDefault();
+    if (!message) toast.error("Please say something!");
+    if (message.length < 5)
+      toast.error("Your message should be 5 characters or more!");
+    if (!user) toast.error("Invalid action");
+
+    try {
+      setProcessing(true);
+      await DatabaseService.saveMessage(message, user.uid);
+      setMessage("");
+      toast.success("Your response has been saved anonymously");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setProcessing(false);
+    }
+  }
+
   async function checkUser() {
-    const userExists = await DatabaseService.userExists(username);
-    setUserExists(userExists);
+    const user = await DatabaseService.fetchUser(username);
+    setUser(user);
     setLoading(false);
   }
 
@@ -69,13 +87,13 @@ const MessageForm = () => {
   return (
     <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
       <div className="bg-[#250933] flex flex-col justify-center items-center gap-4 p-10 my-4 rounded-2xl">
-        {!userExists && <NonUser username={username} />}
+        {!user && <NonUser username={username} />}
 
-        {userExists && (
+        {user && (
           <>
             <h1 className="text-4xl">Say Something</h1>
 
-            <form>
+            <form onSubmit={handleMessageSubmission}>
               <p className="text-sm">
                 Say Something About Me <span className="text-[red]">*</span>
               </p>
@@ -85,6 +103,7 @@ const MessageForm = () => {
                 placeholder="Leave a message for yusuff4u2c here.."
                 className="outline-none bg-transparent w-[400px] border-none"
                 onChange={handleChange}
+                value={message}
                 rows={5}
               />
               <p className="pb-1 border-b-2">
@@ -93,7 +112,7 @@ const MessageForm = () => {
                 </span>{" "}
                 characters remaining
               </p>
-              <Button type="submit">
+              <Button type="submit" disabled={processing}>
                 <div className="flex justify-center gap-3 items-center">
                   Send Message
                 </div>

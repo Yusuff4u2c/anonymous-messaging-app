@@ -17,13 +17,34 @@ export class DatabaseService {
         }
     }
 
-    static async userExists(username) {
+    static async fetchUser(username) {
         try {
             // fetch user with the userid
             const q = query(collection(firebaseDb, "users"), where('username', '==', username));
 
             const querySnapshot = await getDocs(q);
-            return querySnapshot.size > 0;
+            let userData = null;
+
+            // if the username exists, querySnapshot will only contain one element
+            querySnapshot.forEach((doc) => {
+                userData = doc.data();
+            })
+
+            return userData;
+        } catch (error) {
+            console.log("database error: ", error)
+            throw new Error(this.parseErrors(error.code))
+        }
+    }
+
+    static async saveMessage(message, userId) {
+        try {
+            await addDoc(collection(firebaseDb, "messages"), {
+                message: message,
+                uid: userId,
+                created_at: Date.now()
+            });
+              
         } catch (error) {
             console.log("database error: ", error)
             throw new Error(this.parseErrors(error.code))
