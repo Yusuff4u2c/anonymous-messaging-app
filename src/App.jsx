@@ -17,6 +17,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/protected-route";
 import MessageForm from "./pages/message-form";
 import AuthRoute from "./components/auth-route";
+import { DatabaseService } from "./libs/services/DatabaseService";
+import { Suspense } from "react";
 
 function App() {
   function Layout() {

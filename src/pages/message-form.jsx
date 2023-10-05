@@ -1,9 +1,10 @@
 import Button from "../components/button";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import Input from "../components/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { DatabaseService } from "../libs/services/DatabaseService";
 
 const MAX_CHARACTER_COUNT = 545;
 
@@ -38,6 +39,8 @@ function NonUser({ username }) {
 
 const MessageForm = () => {
   const { username } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [userExists, setUserExists] = useState(false);
 
   // check if the user is registered on our platform
 
@@ -51,12 +54,24 @@ const MessageForm = () => {
     }
   }
 
+  async function checkUser() {
+    const userExists = await DatabaseService.userExists(username);
+    setUserExists(userExists);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
       <div className="bg-[#250933] flex flex-col justify-center items-center gap-4 p-10 my-4 rounded-2xl">
-        {true && <NonUser username={username} />}
+        {!userExists && <NonUser username={username} />}
 
-        {false && (
+        {userExists && (
           <>
             <h1 className="text-4xl">Say Something</h1>
 

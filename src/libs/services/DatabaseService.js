@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, doc, getDoc, getDocs, query, where } from "firebase/firestore"
 import { firebaseDb } from "../firebase";
 export class DatabaseService {
 
@@ -11,6 +11,19 @@ export class DatabaseService {
                 username: username,
                 created_at: Date.now()
               });
+        } catch (error) {
+            console.log("database error: ", error)
+            throw new Error(this.parseErrors(error.code))
+        }
+    }
+
+    static async userExists(username) {
+        try {
+            // fetch user with the userid
+            const q = query(collection(firebaseDb, "users"), where('username', '==', username));
+
+            const querySnapshot = await getDocs(q);
+            return querySnapshot.size > 0;
         } catch (error) {
             console.log("database error: ", error)
             throw new Error(this.parseErrors(error.code))
