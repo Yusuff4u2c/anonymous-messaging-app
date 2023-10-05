@@ -1,11 +1,14 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const AuthRoute = ({ children }) => {
   const { user } = useAuth();
+  // extract state from the router
+  const { state } = useLocation();
+  const referrer = state?.referrer;
 
   if (user) {
-    return <Navigate to="/home" replace={true} />;
+    return <Navigate to={referrer || "/home"} replace={true} />;
   }
 
   return children;

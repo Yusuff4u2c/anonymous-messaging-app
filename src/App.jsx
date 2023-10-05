@@ -35,51 +35,49 @@ function App() {
   return (
     <>
       <AppProvider>
-        <BrowserRouter>
-          <AuthProvider>
-            <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route element={<Layout />}>
-                <Route
-                  path="/login"
-                  element={
-                    <AuthRoute>
-                      <Login />
-                    </AuthRoute>
-                  }
-                />
-                <Route
-                  path="/forgotpassword"
-                  element={
-                    <AuthRoute>
-                      <ForgotPassword />
-                    </AuthRoute>
-                  }
-                />
-                <Route
-                  path="/register"
-                  element={
-                    <AuthRoute>
-                      <Registration />
-                    </AuthRoute>
-                  }
-                />
-                <Route path="/:username" element={<MessageForm />} />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/messages" element={<Messages />} />
-                  <Route path="/settings" element={<Settings />} />
-                  <Route path="/change-email" element={<ChangeEmail />} />
-                  <Route path="/change-username" element={<Changeusername />} />
-                  <Route path="/change-password" element={<ChangePassword />} />
-                </Route>
-                <Route path="/disclaimer" element={<Disclaimer />} />
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route element={<Layout />}>
+              <Route
+                path="/login"
+                element={
+                  <AuthRoute>
+                    <Login />
+                  </AuthRoute>
+                }
+              />
+              <Route
+                path="/forgotpassword"
+                element={
+                  <AuthRoute>
+                    <ForgotPassword />
+                  </AuthRoute>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <AuthRoute>
+                    <Registration />
+                  </AuthRoute>
+                }
+              />
+              <Route path="/:username" element={<MessageForm />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/home" element={<Home />} />
+                <Route path="/messages" element={<Messages />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/change-email" element={<ChangeEmail />} />
+                <Route path="/change-username" element={<Changeusername />} />
+                <Route path="/change-password" element={<ChangePassword />} />
               </Route>
-            </Routes>
-          </AuthProvider>
-        </BrowserRouter>
-        <Toaster />
+              <Route path="/disclaimer" element={<Disclaimer />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
       </AppProvider>
+      <Toaster />
     </>
   );
 }

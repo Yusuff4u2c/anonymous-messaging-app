@@ -1,14 +1,15 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const ProtectedRoute = () => {
-  // const { user } = useAuth();
+  const { user } = useAuth();
+  const location = useLocation(); // ".../messages"
 
-  // console.log("protection check ", user);
-
-  // if (!user) {
-  //   return <Navigate to="/login" replace={true} />;
-  // }
+  if (!user) {
+    return (
+      <Navigate to="/login" replace={true} state={{ referrer: location }} />
+    );
+  }
 
   return <Outlet />;
 };
