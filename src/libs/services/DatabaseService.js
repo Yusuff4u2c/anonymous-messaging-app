@@ -37,6 +37,23 @@ export class DatabaseService {
         }
     }
 
+    static async fetchMessages(uid) {
+        try {
+            // fetch user with the userid
+            const q = query(collection(firebaseDb, "messages"), where('uid', '==', uid));
+
+            const querySnapshot = await getDocs(q);
+
+            // querySnapshot.forEach((doc) => {
+                
+            // })
+
+        } catch (error) {
+            console.log("database error: ", error)
+            throw new Error(this.parseErrors(error.code))
+        }
+    }
+
     static async saveMessage(message, userId) {
         try {
             await addDoc(collection(firebaseDb, "messages"), {

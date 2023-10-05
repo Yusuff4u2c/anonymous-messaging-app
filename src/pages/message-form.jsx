@@ -55,15 +55,16 @@ const MessageForm = () => {
 
   async function handleMessageSubmission(e) {
     e.preventDefault();
-    if (!message) toast.error("Please say something!");
+    if (!message) return toast.error("Please say something!");
     if (message.length < 5)
-      toast.error("Your message should be 5 characters or more!");
-    if (!user) toast.error("Invalid action");
+      return toast.error("Your message should be 5 characters or more!");
+    if (!user) return toast.error("Invalid action");
 
     try {
       setProcessing(true);
       await DatabaseService.saveMessage(message, user.uid);
       setMessage("");
+      // messageSubmitted state
       toast.success("Your response has been saved anonymously");
     } catch (error) {
       toast.error(error.message);
