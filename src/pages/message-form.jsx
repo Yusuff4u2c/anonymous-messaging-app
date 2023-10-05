@@ -17,8 +17,8 @@ function NonUser({ username }) {
       </p>
 
       <p className="max-w-[40ch] text-center">
-        Or, you can get started by registering with the username
-        yusuff4u2cdafdfs right now. Tap on "Register Now" button!
+        Or, you can get started by registering with the username {username}{" "}
+        right now. Tap on "Register Now" button!
       </p>
 
       <Link to={"/register"}>
@@ -37,8 +37,7 @@ function NonUser({ username }) {
 }
 
 const MessageForm = () => {
-  const param = useParams();
-  const username = param["username"];
+  const { username } = useParams();
 
   // check if the user is registered on our platform
 
@@ -87,8 +86,8 @@ const MessageForm = () => {
             </form>
 
             <p className="max-w-[45ch]">
-              Say what do you think about yusuff4u2c or Leave a feedback for
-              yusuff4u2c anonymously using the form above.. 🥰 Thank You!! 😍😊
+              Say what do you think about {username} or Leave a feedback for
+              {username} anonymously using the form above.. 🥰 Thank You!! 😍😊
             </p>
 
             <p className="max-w-[45ch]">

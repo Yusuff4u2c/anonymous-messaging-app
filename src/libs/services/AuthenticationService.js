@@ -26,21 +26,22 @@ export class AuthenticationService {
 
     static async register({username, email, password}) {
         try {
-            const userCredential = await createUserWithEmailAndPassword(
+            const {user} = await createUserWithEmailAndPassword(
                 firebaseAuth,
                 email,
                 password
             );
 
-            await updateProfile(userCredential.user, {
+            await updateProfile(user, {
                 displayName: username
             })
 
             // Save the user in our database
-            await DatabaseService.createUser({email, username});
+            await DatabaseService.createUser({email, username, userId: user.uid});
 
-            return userCredential;
+            return user;
         } catch (error) {
+            console.log("auth error: ", error)
             throw new Error(this.parseErrors(error.code))
         }
     }
