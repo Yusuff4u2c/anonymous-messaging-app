@@ -18,12 +18,12 @@ import useAuth from "../hooks/useAuth";
 
 const Settings = () => {
   const navigate = useNavigate();
-  const { updateUser } = useAuth();
+  const { signUserOutOfApp } = useAuth();
 
   async function handleLogOut() {
     try {
       await AuthenticationService.logout();
-      updateUser(null);
+      signUserOutOfApp();
       toast.success("Signed Out");
       navigate("/login");
     } catch (error) {

@@ -21,7 +21,7 @@ const logInSchema = Yup.object().shape({
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { updateUser } = useAuth();
+  const { signUserIntoApp } = useAuth();
 
   const {
     handleSubmit,
@@ -39,7 +39,7 @@ const Login = () => {
     try {
       setLoading(true);
       const user = await AuthenticationService.login(data.email, data.password);
-      updateUser(user);
+      signUserIntoApp(user);
 
       toast.success("Login Succesful");
       navigate("/home");

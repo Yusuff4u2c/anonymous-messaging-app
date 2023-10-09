@@ -7,7 +7,17 @@ export const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
+
+  const signUserIntoApp = (user) => {
+    setUser(user);
+    window.localStorage.setItem("user", JSON.stringify(user));
+  };
+
+  const signUserOutOfApp = () => {
+    setUser(null);
+    window.localStorage.removeItem("user");
+  };
 
   useEffect(() => {
     const persistedUser = window.localStorage.getItem("user");
@@ -16,15 +26,12 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
-    window.localStorage.setItem("user", JSON.stringify(user));
-  }, [user]);
-
   return (
     <AuthContext.Provider
       value={{
         user,
-        getUser: () => user,
+        signUserOutOfApp,
+        signUserIntoApp,
         updateUser: (_user) => setUser(_user),
       }}
     >
