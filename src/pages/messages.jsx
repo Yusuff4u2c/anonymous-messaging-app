@@ -1,3 +1,4 @@
+import { DatabaseService } from "../libs/services/DatabaseService";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaLongArrowAltLeft,
@@ -5,7 +6,8 @@ import {
   FaAngleDown,
 } from "react-icons/fa";
 import Button from "../components/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useAuth from "../hooks/useAuth";
 
 const Btn = ({ className, title, ...others }) => {
   return (
@@ -21,8 +23,16 @@ const Btn = ({ className, title, ...others }) => {
   );
 };
 
-const Messages = () => {
+function Messages() {
   const [paragraphVisibility, setParagraphVisibility] = useState(false);
+  const { user } = useAuth();
+  const [messageDetails, setMessageDetails] = useState([]);
+  useEffect(() => {
+    const fetchMessages = async () => {
+      setMessageDetails(await DatabaseService.fetchMessages(user.userId));
+    };
+    fetchMessages();
+  }, []);
 
   return (
     <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
@@ -36,13 +46,17 @@ const Messages = () => {
         <div className=" flex flex-col pb-6 text-center">
           <div className="border text-start my-3 border-[#5fdee2] p-5 rounded-xl">
             <p className="font-bold">Message:</p>
-            <p>
-              I don't know how it happens to people. I had child support, need
-              for something to drink, rent, shoes, shirts, socks, all that
-              stuff. Like everyone else I needed an old car, something to eat,
-              all the little intangibles. Like women. Or a day at the
-            </p>
-            <p>- Anonymous [18-09-2023 18:00 GMT]</p>
+
+            {messageDetails.map((message, index) => (
+              <div key={index}>
+                <p>{message.message}</p>{" "}
+                <p>Anonymous - {message.created_at.toLocaleString()}</p>
+              </div>
+            ))}
+            {/* {messageDetails.map((message, index) => (
+              <p key={index}>{message.created_at.}</p>
+            ))} */}
+
             <Btn title="✨ Share Response ✨" />
             <Btn title="More Options" />
           </div>
@@ -107,6 +121,6 @@ const Messages = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Messages;

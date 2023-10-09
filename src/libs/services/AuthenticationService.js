@@ -31,7 +31,7 @@ export class AuthenticationService {
                 email,
                 password
             );
-
+            console.log(user);
             await updateProfile(user, {
                 displayName: username
             })
@@ -48,7 +48,9 @@ export class AuthenticationService {
 
     static async logout() {
         try { 
-            return signOut(firebaseAuth)    
+            return signOut(firebaseAuth)  
+            
+            
         } catch (error) {
             throw new Error(this.parseErrors(error.code))
         } 

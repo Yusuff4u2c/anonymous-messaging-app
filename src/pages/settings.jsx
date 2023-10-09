@@ -14,13 +14,16 @@ import {
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { AuthenticationService } from "../libs/services/AuthenticationService";
+import useAuth from "../hooks/useAuth";
 
 const Settings = () => {
   const navigate = useNavigate();
+  const { updateUser } = useAuth();
 
   async function handleLogOut() {
     try {
       await AuthenticationService.logout();
+      updateUser(null);
       toast.success("Signed Out");
       navigate("/login");
     } catch (error) {
