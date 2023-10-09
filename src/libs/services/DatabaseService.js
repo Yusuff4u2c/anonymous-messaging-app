@@ -9,6 +9,7 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { firebaseDb } from "../firebase";
+import dayjs from "dayjs";
 export class DatabaseService {
   static async createUser({ username, email, userId }) {
     try {
@@ -61,9 +62,7 @@ export class DatabaseService {
       let messageDetails = [];
       querySnapshot.docs.forEach((doc) => {
         const data = doc.data();
-        const timestamp = data.created_at;
-        const date = timestamp.toDate();
-        messageDetails.push({ ...data, created_at: date });
+        messageDetails.push(data);
       });
       return messageDetails;
     } catch (error) {
@@ -77,7 +76,7 @@ export class DatabaseService {
       await addDoc(collection(firebaseDb, "messages"), {
         message: message,
         uid: userId,
-        created_at: Timestamp.now(),
+        created_at: dayjs(Date.now()).toISOString(),
       });
     } catch (error) {
       console.log("database error: ", error);

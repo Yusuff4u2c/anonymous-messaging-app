@@ -8,6 +8,7 @@ import {
 import Button from "../components/button";
 import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
+import dayjs from "dayjs";
 
 const Btn = ({ className, title, ...others }) => {
   return (
@@ -45,22 +46,29 @@ function Messages() {
           have received
         </p>
         <div className=" flex flex-col pb-6 text-center">
-          <div className="border text-start my-3 border-[#5fdee2] p-5 rounded-xl">
-            <p className="font-bold">Message:</p>
+          {messageDetails.map((message, index) => (
+            <div
+              key={index}
+              className="border text-start my-3 border-[#5fdee2] p-5 rounded-xl"
+            >
+              <p className="font-bold">Message:</p>
 
-            {messageDetails.map((message, index) => (
-              <div key={index}>
+              <div>
                 <p>{message.message}</p>{" "}
-                <p>Anonymous - {message.created_at.toLocaleString()}</p>
+                <p>
+                  Anonymous -{" "}
+                  {dayjs(message.created_at).format("DD MMM YYYY hh:mm A")}
+                </p>
               </div>
-            ))}
-            {/* {messageDetails.map((message, index) => (
+              {/* {messageDetails.map((message, index) => (
               <p key={index}>{message.created_at.}</p>
             ))} */}
 
-            <Btn title="✨ Share Response ✨" />
-            <Btn title="More Options" />
-          </div>
+              <Btn title="✨ Share Response ✨" />
+              <Btn title="More Options" />
+            </div>
+          ))}
+
           <div className="border border-[#5fdee2] p-5 rounded-xl">
             <p>You Have Reached The End! 🏁</p>{" "}
             <p>
@@ -68,6 +76,7 @@ function Messages() {
               Messaged
             </p>
           </div>
+
           <Button className="w-full mb-3">
             <div className="flex  justify-center gap-3 items-center">
               View More Answers <FaLongArrowAltRight />
