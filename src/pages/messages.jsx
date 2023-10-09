@@ -27,6 +27,7 @@ function Messages() {
   const [paragraphVisibility, setParagraphVisibility] = useState(false);
   const { user } = useAuth();
   const [messageDetails, setMessageDetails] = useState([]);
+
   useEffect(() => {
     const fetchMessages = async () => {
       setMessageDetails(await DatabaseService.fetchMessages(user.userId));

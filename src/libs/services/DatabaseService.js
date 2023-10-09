@@ -40,7 +40,7 @@ export class DatabaseService {
       querySnapshot.forEach((doc) => {
         userData = doc.data();
       });
-      console.log(userData);
+      
       return userData;
     } catch (error) {
       console.log("database error: ", error);
@@ -49,13 +49,15 @@ export class DatabaseService {
   }
 
   static async fetchMessages(uid) {
+    console.log(uid)
     try {
       const q = query(
         collection(firebaseDb, "messages"),
         where("uid", "==", uid)
       );
-
+        
       const querySnapshot = await getDocs(q);
+      console.log("snapshot size: ",querySnapshot.size)
       let messageDetails = [];
       querySnapshot.docs.forEach((doc) => {
         const data = doc.data();

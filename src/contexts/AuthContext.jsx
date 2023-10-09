@@ -17,9 +17,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      window.localStorage.setItem("user", JSON.stringify(user));
-    }
+    window.localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
   return (

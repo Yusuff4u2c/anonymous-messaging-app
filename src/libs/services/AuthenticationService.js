@@ -20,18 +20,22 @@ export class AuthenticationService {
             }
         } catch (error) {
             console.log(error)
-            throw new Error(this.parseErrors(error.code))
+            throw new Error(this.parseErrors(error))
         }
     }
 
     static async register({username, email, password}) {
         try {
+            // check if theres a user with thesame username
+            const userExist = await DatabaseService.fetchUser(username);
+            if (userExist) throw new Error("Username is already taken");
+
             const {user} = await createUserWithEmailAndPassword(
                 firebaseAuth,
                 email,
                 password
             );
-            console.log(user);
+            
             await updateProfile(user, {
                 displayName: username
             })
@@ -42,7 +46,7 @@ export class AuthenticationService {
             return user;
         } catch (error) {
             console.log("auth error: ", error)
-            throw new Error(this.parseErrors(error.code))
+            throw new Error(this.parseErrors(error))
         }
     }
 
@@ -52,7 +56,7 @@ export class AuthenticationService {
             
             
         } catch (error) {
-            throw new Error(this.parseErrors(error.code))
+            throw new Error(this.parseErrors(error))
         } 
     }
 
@@ -60,7 +64,7 @@ export class AuthenticationService {
         try { 
             return sendEmailVerification(firebaseAuth.currentUser)    
         } catch (error) {
-            throw new Error(this.parseErrors(error.code))
+            throw new Error(this.parseErrors(error))
         } 
     }
 
@@ -72,7 +76,12 @@ export class AuthenticationService {
         } 
     }
 
-    static parseErrors(errorCode) {
+    static parseErrors(error) {
+        let errorCode;
+        if (error.code) {
+            errorCode = error.code
+        } else errorCode = error.message;
+
         let message = errorCode
             
         switch (errorCode) {
