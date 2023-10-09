@@ -2,8 +2,8 @@ import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext({
   user: null,
-  getUser: () => {},
-  updateUser: () => {},
+  signUserIntoApp: () => {},
+  signUserOutOfApp: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }) => {
         user,
         signUserOutOfApp,
         signUserIntoApp,
-        updateUser: (_user) => setUser(_user),
       }}
     >
       {children}
