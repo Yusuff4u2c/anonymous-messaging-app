@@ -1,4 +1,4 @@
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import Landing from "./pages/landing";
 import Footer from "./components/footer";
 import Registration from "./pages/registration";
@@ -17,9 +17,6 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/protected-route";
 import MessageForm from "./pages/message-form";
 import AuthRoute from "./components/auth-route";
-import YourTurn from "./pages/your-turn";
-import { DatabaseService } from "./libs/services/DatabaseService";
-import { Suspense } from "react";
 
 function App() {
   function Layout() {
@@ -60,14 +57,6 @@ function App() {
               element={
                 <AuthRoute>
                   <Registration />
-                </AuthRoute>
-              }
-            />
-            <Route
-              path="/your-turn"
-              element={
-                <AuthRoute>
-                  <YourTurn />
                 </AuthRoute>
               }
             />

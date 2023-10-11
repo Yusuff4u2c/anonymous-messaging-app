@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import Input from "../components/input";
 import { useForm } from "react-hook-form";
@@ -17,9 +17,43 @@ const regSchema = Yup.object().shape({
     .min(5, "password must be at least 5 characters")
     .required("password is required"),
 });
+const YourTurn = () => {
+  return (
+    <>
+      <div className="bg-[#c1bca9] text-center px-8 py-3 rounded-lg">
+        <h1 className="text-xl pb-3 border-b text-[#61562a]">How to Play?</h1>
+        <div className="text-green-700  pt-3">
+          <p>
+            ►<span className="font-bold">Register your Account</span> NOW!!
+            👇👇👇
+          </p>
+          <p>
+            ► Share your <span className="font-bold">Dare Link</span> with
+            others
+          </p>
+          <p>
+            ► Recieve{" "}
+            <span className="font-bold">
+              anonymous compliments and secret <br />
+              messages
+            </span>{" "}
+            from your friends.
+          </p>
+        </div>
+      </div>
+      <p className="text-green-600">
+        {" "}
+        Now it's your turn to create an account and dare <br /> your friends to
+        tell you what they think about you!
+      </p>
+    </>
+  );
+};
 
 const Registration = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  console.log(searchParams.get("referrer"));
   const {
     handleSubmit,
     register,
@@ -56,6 +90,7 @@ const Registration = () => {
         </div>
 
         <h1 className="text-4xl">Register</h1>
+        {searchParams.get("referrer") && <YourTurn />}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-5">
             <label htmlFor="user-name" className="block mb-2  ">

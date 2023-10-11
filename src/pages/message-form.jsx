@@ -67,7 +67,7 @@ const MessageForm = () => {
       setMessage("");
       // messageSubmitted state
       toast.success("Your response has been saved anonymously");
-      navigate("/your-turn");
+      navigate("/register?referrer=your-turn");
     } catch (error) {
       toast.error(error.message);
     } finally {
