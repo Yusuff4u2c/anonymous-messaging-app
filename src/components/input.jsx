@@ -5,7 +5,7 @@ const Input = React.forwardRef(
     return (
       <>
         <input
-          className={`outline-none bg-transparent w-[400px] ${className} pb-2 border-b-2 ${
+          className={`outline-none bg-transparent w-[400px] ${className} pb-2 px-2 border-b-2 ${
             error ? "border-red-500" : ""
           }`}
           onChange={onChange}

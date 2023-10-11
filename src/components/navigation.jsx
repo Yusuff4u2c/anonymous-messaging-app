@@ -3,9 +3,9 @@ import homeLogo from "../assets/image/logo.png";
 import { useState } from "react";
 
 const Navigation = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  function handleHover() {
-    setIsHovered(!isHovered);
+  const [isClicked, setIsClicked] = useState(false);
+  function handlClick() {
+    setIsClicked(!isClicked);
   }
   return (
     <div>
@@ -17,12 +17,12 @@ const Navigation = () => {
           <li>
             <Link to="/">HOME</Link>
           </li>
-          <li onClick={handleHover}>
+          <li onClick={handlClick}>
             <a href="#">GET STARTED</a>
 
             <div
               className={`bg-white ${
-                !isHovered ? "hidden" : ""
+                !isClicked ? "hidden" : ""
               } text-black absolute top-14 right-32`}
             >
               <ul>

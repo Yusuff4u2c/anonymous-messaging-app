@@ -6,9 +6,9 @@ import {
   FaShareAlt,
   FaFacebookSquare,
   FaWhatsapp,
-  FaInstagram,
   FaCogs,
   FaClipboard,
+  FaTwitter,
 } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import useCopyToClipboard from "../hooks/useCopyToClipboard";
@@ -18,6 +18,28 @@ const Home = () => {
   const { user } = useAuth();
   const appUrl = import.meta.env.VITE_APP_URL;
   const [, copy] = useCopyToClipboard();
+  const userUrl = `${appUrl}/${user?.displayName}`;
+
+  const handleClick = (platform) => {
+    const defaultMessage =
+      "Write a *secret anonymous message* for me. I *won't know* who wrote it...";
+    switch (platform) {
+      case "whatsapp":
+        const whatsappLink = `https://api.whatsapp.com/send?text=${defaultMessage}%0A${userUrl}`;
+        window.open(whatsappLink);
+        break;
+      case "twitter":
+        const twitterLink = `https://twitter.com/intent/tweet?url=${userUrl}&text=${defaultMessage}`;
+        window.open(twitterLink);
+        break;
+      case "facebook":
+        const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${userUrl}`;
+        window.open(facebookLink);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div>
@@ -60,7 +82,7 @@ const Home = () => {
                 <FaShareAlt className="hover:-translate-x-3" /> Share My Profile
               </a>
             </Link>
-            <Link>
+            <Link onClick={() => handleClick("whatsapp")}>
               <a
                 href="#"
                 className="bg-[#25d366] flex justify-center items-center gap-4 my-3 p-3 rounded-lg hover:bg-gradient-to-r from-[rgb(212,39,160)] from-10% to-[#7a4cc4]"
@@ -69,7 +91,7 @@ const Home = () => {
                 Whatsapp
               </a>
             </Link>
-            <Link>
+            <Link onClick={() => handleClick("facebook")}>
               <a
                 href="#"
                 className=" bg-[#3b5998] flex justify-center items-center gap-4 my-3 p-3 rounded-lg hover:bg-gradient-to-r from-[rgb(212,39,160)] from-10% to-[#7a4cc4]"
@@ -78,13 +100,12 @@ const Home = () => {
                 Facebook
               </a>
             </Link>
-            <Link>
+            <Link onClick={() => handleClick("twitter")}>
               <a
                 href="#"
                 className=" bg-[#e4405f] flex justify-center items-center gap-4 my-3 p-3 rounded-lg hover:bg-gradient-to-r from-[rgb(212,39,160)] from-10% to-[#7a4cc4]"
               >
-                <FaInstagram className="hover:-translate-x-3" /> Share on
-                Instagram
+                <FaTwitter className="hover:-translate-x-3" /> Share on Twitter
               </a>
             </Link>
           </div>

@@ -42,6 +42,7 @@ const MessageForm = () => {
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const [message, setMessage] = useState("");
 
@@ -66,6 +67,7 @@ const MessageForm = () => {
       setMessage("");
       // messageSubmitted state
       toast.success("Your response has been saved anonymously");
+      navigate("/your-turn");
     } catch (error) {
       toast.error(error.message);
     } finally {
