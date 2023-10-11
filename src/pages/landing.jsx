@@ -23,7 +23,7 @@ const Landing = () => {
     {
       icon: wandIcon,
       title: "Easy 2 Use",
-      para: "We are constantly working on Kubool as a platform to make it as user friendly as possible. As of now you can just download our app, fill in your username & pass to get started.",
+      para: "We are constantly working on HushHive as a platform to make it as user friendly as possible. As of now you can just download our app, fill in your username & pass to get started.",
     },
   ];
   return (
@@ -35,12 +35,12 @@ const Landing = () => {
             Send Secret <br /> Anonymous Messages <br /> Online
           </h1>
           <p className="leading-relaxed">
-            Kubool is an interactive anonymous messaging app with a dare game.{" "}
+            HushHive is an interactive anonymous messaging app with a dare game.{" "}
             <br />
             Create your Profile Link and Send it to all your contacts to check
             what do <br /> your friends think about you. With the help of
-            Kubool, you can send <br /> and recieve anonymous compliments easily
-            for free!
+            HushHive, you can send <br /> and recieve anonymous compliments
+            easily for free!
           </p>
           <button className="mt-6 px-10 py-4 rounded-md bg-white text-black">
             Download Now
@@ -52,7 +52,7 @@ const Landing = () => {
       </div>
       <div className="px-16">
         <div className="text-center my-16">
-          <h1 className="text-4xl my-4">Why use Kubool?</h1>
+          <h1 className="text-4xl my-4">Why use HushHive?</h1>
           <p>
             Our Anonymous Messaging App comes along with many great features.
             Here we are going <br /> to list some of them. Have a look below.
@@ -74,7 +74,7 @@ const Landing = () => {
       <div className="bg-gray-900 py-20 px-16 flex justify-between items-center">
         <div>
           <p className="text-white">
-            Copyright © 2019 - Kubool
+            Copyright © 2023 - HushHive
             <span className="text-yellow-500 inline">|</span>
             <span>
               <a href="#" className="text-[#6247EA]">

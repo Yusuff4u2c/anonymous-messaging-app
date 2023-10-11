@@ -13,9 +13,9 @@ const Disclaimer = () => {
         <h1 className="text-4xl">Disclaimer</h1>
         <div className="flex gap-4 flex-col justify-center items-start">
           <p>
-            <span className="font-bold">Kubool</span> is an interactive Dare
-            Game by <span className="font-bold">Kubool Web,</span> <br /> where
-            you can compliment and get complimented by <br />
+            <span className="font-bold">HushHive</span> is an interactive Dare
+            Game by <span className="font-bold">HushHive Web,</span> <br />{" "}
+            where you can compliment and get complimented by <br />
             your friends, family and the closed ones keeping the <br /> privacy
             of the users safe.
           </p>

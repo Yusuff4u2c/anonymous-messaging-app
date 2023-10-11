@@ -93,16 +93,16 @@ function Messages() {
             onClick={() => setParagraphVisibility(!paragraphVisibility)}
             title={
               <div className="flex w-full justify-center gap-3 items-center">
-                Kubool Messages <FaAngleDown />
+                HushHive Messages <FaAngleDown />
               </div>
             }
           />
           {paragraphVisibility && (
             <p className="text-start mt-6">
-              Kubool is an interactive Dare Game, where you can compliment and
+              HushHive is an interactive Dare Game, where you can compliment and
               get complimented by your friends, family and closed ones keeping
               the privacy of the users safe. One can only send you a private
-              anonymous message in Kubool when he or she has your username. We
+              anonymous message in HushHive when he or she has your username. We
               recommend you share your unique profile link with everyone you
               love and care about. Not only them but you can also share the dare
               with everyone in your social media contact list and ask them to

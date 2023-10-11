@@ -4,7 +4,7 @@ const footer = () => {
     <div className="bg-gray-600 pb-20 pt-10 px-16 ">
       <div className="flex flex-col justify-center items-center">
         <p className="text-white">
-          © 2019 - <span className="text-gray-300">Kubool</span>{" "}
+          © 2023 - <span className="text-gray-300">HushHive</span>{" "}
         </p>
         <div className="text-gray-300 text-sm">
           <a href="#" className="px-1">
