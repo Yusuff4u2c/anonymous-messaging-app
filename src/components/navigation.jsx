@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import homeLogo from "../assets/image/logo.png";
+// import homeLogo from "../assets/image/logo.png";
 import { useState } from "react";
 
 const Navigation = () => {
@@ -11,7 +11,7 @@ const Navigation = () => {
     <div>
       <nav className="bg-gradient-to-r from-[#be62be] from-25% to-[#7b45d3] py-6 px-16 text-white flex justify-between items-center">
         <Link to="/home">
-          <img className="w-23" src={homeLogo} alt="home logo" />
+          <h1 className="text-2xl">HushHive</h1>
         </Link>
         <ul className="flex gap-12 text-sm font-bold relative">
           <li>

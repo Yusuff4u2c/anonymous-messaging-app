@@ -86,7 +86,7 @@ const Landing = () => {
             Shoutout to
             <span className="pl-2">
               <a href="#" className="text-[#6247EA]">
-                Colorlib
+                Yemi
               </a>
             </span>
           </p>
