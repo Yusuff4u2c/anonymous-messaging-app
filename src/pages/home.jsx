@@ -16,7 +16,8 @@ import toast from "react-hot-toast";
 
 const Home = () => {
   const { user } = useAuth();
-  const appUrl = import.meta.env.VITE_APP_URL;
+  const appUrl = window.location.href;
+  // import.meta.env.VITE_APP_URL;
   const [, copy] = useCopyToClipboard();
   const userUrl = `${appUrl}/${user?.displayName}`;
 
