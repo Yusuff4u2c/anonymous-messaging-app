@@ -103,7 +103,7 @@ const MessageForm = () => {
               <textarea
                 type="text"
                 id="message"
-                placeholder="Leave a message for yusuff4u2c here.."
+                placeholder={`Leave a message for ${username} here..`}
                 className="outline-none bg-transparent w-[400px] border-none"
                 onChange={handleChange}
                 value={message}

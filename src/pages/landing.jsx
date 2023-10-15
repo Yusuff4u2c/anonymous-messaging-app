@@ -27,14 +27,14 @@ const Landing = () => {
     },
   ];
   return (
-    <div>
+    <div className="">
       <Navigation />
-      <div className="flex justify-between  text-white items-start p-16 bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
+      <div className="flex justify-between text-white items-start p-16 bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
         <div>
-          <h1 className="text-6xl font-bold leading-normal">
+          <h1 className="text-2xl md:text-6xl font-bold leading-normal">
             Send Secret <br /> Anonymous Messages <br /> Online
           </h1>
-          <p className="leading-relaxed">
+          <p className="leading-relaxed md:text-lg text-sm mt-3">
             HushHive is an interactive anonymous messaging app with a dare game.{" "}
             <br />
             Create your Profile Link and Send it to all your contacts to check
@@ -42,12 +42,12 @@ const Landing = () => {
             HushHive, you can send <br /> and recieve anonymous compliments
             easily for free!
           </p>
-          <button className="mt-6 px-10 py-4 rounded-md bg-white text-black">
+          <button className="mt-6 px-10 py-4 text-sm md:text-lg rounded-md bg-white text-black">
             Download Now
           </button>
         </div>
-        <div>
-          <img className="h-[550px] w-[295px]" src={banner} alt="" />
+        <div className="hidden md:block">
+          <img className="h-[550px] w-[295px] " src={banner} alt="" />
         </div>
       </div>
       <div className="px-16">
@@ -58,11 +58,11 @@ const Landing = () => {
             Here we are going <br /> to list some of them. Have a look below.
           </p>
         </div>
-        <div className="flex justify-between gap-10 mt-5 mb-16">
+        <div className="flex flex-wrap sm:flex-nowrap sm:justify-between sm:gap-10 mt-5 mb-16">
           {reasonsToUse.map((reason) => (
             <div
               key={reason.title}
-              className="p-7 shadow-lg flex flex-col rounded-lg justify-between items-start gap-6"
+              className="p-5 w-1/2 sm:w-1/4 shadow-lg flex flex-col rounded-lg justify-between items-start gap-4"
             >
               <img src={reason.icon} alt={reason.title} />
               <h1>{reason.title}</h1>
