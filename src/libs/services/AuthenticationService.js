@@ -1,8 +1,18 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail, updateProfile, getAuth } from "firebase/auth";
 import { firebaseAuth } from "../firebase"
 import { DatabaseService } from "./DatabaseService";
 
 export class AuthenticationService {
+    static getUser() {
+        const user = getAuth().currentUser;
+
+        return { 
+            email: user.email, 
+            displayName: user.displayName, 
+            emailVerified: user.emailVerified, 
+            userId: user.uid 
+        }
+    }
 
     static async login(email, password) {
         try {
@@ -42,6 +52,9 @@ export class AuthenticationService {
 
             // Save the user in our database
             await DatabaseService.createUser({email, username, userId: user.uid});
+
+            // Send email verification
+            await this.sendVerificationEmail()
 
             return user;
         } catch (error) {

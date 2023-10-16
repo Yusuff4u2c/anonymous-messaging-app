@@ -18,6 +18,8 @@ import ProtectedRoute from "./components/protected-route";
 import MessageForm from "./pages/message-form";
 import AuthRoute from "./components/auth-route";
 import { AppContext, AppProvider } from "./contexts/AppContext";
+import VerifyEmail from "./pages/verify-email";
+import EmailVerificationProtection from "./components/email-verification-protection";
 
 function App() {
   function Layout() {
@@ -64,12 +66,16 @@ function App() {
               />
               <Route path="/:username" element={<MessageForm />} />
               <Route element={<ProtectedRoute />}>
-                <Route path="/home" element={<Home />} />
-                <Route path="/messages" element={<Messages />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/change-email" element={<ChangeEmail />} />
-                <Route path="/change-username" element={<Changeusername />} />
-                <Route path="/change-password" element={<ChangePassword />} />
+                <Route path="/verify-email" element={<VerifyEmail />} />
+
+                <Route element={<EmailVerificationProtection />}>
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/messages" element={<Messages />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/change-email" element={<ChangeEmail />} />
+                  <Route path="/change-username" element={<Changeusername />} />
+                  <Route path="/change-password" element={<ChangePassword />} />
+                </Route>
               </Route>
               <Route path="/disclaimer" element={<Disclaimer />} />
             </Route>

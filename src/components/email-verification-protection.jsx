@@ -1,17 +1,21 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-const ProtectedRoute = () => {
+const EmailVerificationProtection = () => {
   const { user } = useAuth();
   const location = useLocation(); // "/messages"
 
-  if (!user) {
+  if (!user.emailVerified) {
     return (
-      <Navigate to="/login" replace={true} state={{ referrer: location }} />
+      <Navigate
+        to="/verify-email"
+        replace={true}
+        state={{ referrer: location }}
+      />
     );
   }
 
   return <Outlet />;
 };
 
-export default ProtectedRoute;
+export default EmailVerificationProtection;
