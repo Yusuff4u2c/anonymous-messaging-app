@@ -27,46 +27,36 @@ const Navigation = () => {
           <h1 className="text-lg">HushHive</h1>
         </Link>
 
-        <div className="relative">
-          <Transition
-            show={isMobileMenuOpen}
-            enter="transition-opacity duration-1000"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity duration-1000"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <a className="absolute" onClick={handleToggleMenu}>
-              <FaBars className="hover:-translate-x-3 sm:hidden " />
-            </a>
-          </Transition>
-
-          <Transition
-            show={!isMobileMenuOpen}
-            enter="transition-opacity duration-1000"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity duration-1000"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <a className="absolute" onClick={handleToggleMenu}>
-              <FaTimes className="hover:-translate-x-3 sm:hidden transform transition-opacity ease-in duration-1000" />
-            </a>
-          </Transition>
-        </div>
-
         {windowWidth <= 640 ? (
-          !isMobileMenuOpen ? (
-            <a className="" onClick={handleToggleMenu}>
-              <FaBars className="hover:-translate-x-3 sm:hidden transform transition-opacity ease-in duration-1000" />
-            </a>
-          ) : (
-            <a className="" onClick={handleToggleMenu}>
-              <FaTimes className="hover:-translate-x-3 sm:hidden transform transition-opacity ease-in duration-1000" />
-            </a>
-          )
+          <div className="w-5 h-5">
+            <Transition
+              show={!isMobileMenuOpen}
+              enter="transition-opacity duration-500"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity duration-500"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <a className="absolute" onClick={handleToggleMenu}>
+                <FaBars className="hover:-translate-x-3 sm:hidden " />
+              </a>
+            </Transition>
+
+            <Transition
+              show={isMobileMenuOpen}
+              enter="transition-opacity duration-500"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity duration-500"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <a className="absolute" onClick={handleToggleMenu}>
+                <FaTimes className="hover:-translate-x-3 sm:hidden transform transition-opacity ease-in duration-1000" />
+              </a>
+            </Transition>
+          </div>
         ) : (
           <ul className="sm:flex  hidden gap-12 text-sm font-bold relative">
             <li>
