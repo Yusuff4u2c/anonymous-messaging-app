@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import { useContext } from "react";
+import { Transition } from "@headlessui/react";
 
 const Navigation = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -21,18 +22,49 @@ const Navigation = () => {
 
   return (
     <div className="bg-gradient-to-r from-[#be62be] from-25% to-[#7b45d3]">
-      <nav className=" py-5 px-16 text-white flex justify-between items-center">
+      <nav className="py-5 px-8 md:px-16 text-white flex justify-between items-center max-w-7xl mx-auto">
         <Link to="/home">
           <h1 className="text-lg">HushHive</h1>
         </Link>
+
+        <div className="relative">
+          <Transition
+            show={isMobileMenuOpen}
+            enter="transition-opacity duration-1000"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-1000"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <a className="absolute" onClick={handleToggleMenu}>
+              <FaBars className="hover:-translate-x-3 sm:hidden " />
+            </a>
+          </Transition>
+
+          <Transition
+            show={!isMobileMenuOpen}
+            enter="transition-opacity duration-1000"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-1000"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <a className="absolute" onClick={handleToggleMenu}>
+              <FaTimes className="hover:-translate-x-3 sm:hidden transform transition-opacity ease-in duration-1000" />
+            </a>
+          </Transition>
+        </div>
+
         {windowWidth <= 640 ? (
           !isMobileMenuOpen ? (
             <a className="" onClick={handleToggleMenu}>
-              <FaBars className="hover:-translate-x-3 sm:hidden transform transition-transform ease-in duration-100" />
+              <FaBars className="hover:-translate-x-3 sm:hidden transform transition-opacity ease-in duration-1000" />
             </a>
           ) : (
             <a className="" onClick={handleToggleMenu}>
-              <FaTimes className="hover:-translate-x-3 sm:hidden transform transition-transform ease-in duration-100" />
+              <FaTimes className="hover:-translate-x-3 sm:hidden transform transition-opacity ease-in duration-1000" />
             </a>
           )
         ) : (
