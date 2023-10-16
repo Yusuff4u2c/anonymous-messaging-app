@@ -73,6 +73,25 @@ export class AuthenticationService {
         } 
     }
 
+    static async updateEmail() {
+        try { 
+            // call the function to update email
+            
+            // update the user profile (don't do it) updateProfile
+
+            // this.sendVerificationEmail()
+
+            // return { 
+            //     email: user.email, 
+            //     displayName: user.displayName, 
+            //     emailVerified: false, 
+            //     userId: user.uid 
+            // }
+        } catch (error) {
+            throw new Error(this.parseErrors(error))
+        } 
+    }
+
     static sendVerificationEmail() {
         try { 
             return sendEmailVerification(firebaseAuth.currentUser)    
