@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 // import homeLogo from "../assets/image/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import { useContext } from "react";
 
 const Navigation = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   function handlClick() {
     setIsClicked(!isClicked);
   }
   const { isMobileMenuOpen, handleToggleMenu } = useContext(AppContext);
+
+  useEffect(() => {
+    window.addEventListener("resize", function () {
+      setWindowWidth(this.innerWidth);
+    });
+  });
 
   return (
     <div className="bg-gradient-to-r from-[#be62be] from-25% to-[#7b45d3]">
@@ -18,7 +25,7 @@ const Navigation = () => {
         <Link to="/home">
           <h1 className="text-lg">HushHive</h1>
         </Link>
-        {window.innerWidth <= 640 ? (
+        {windowWidth <= 640 ? (
           !isMobileMenuOpen ? (
             <a className="" onClick={handleToggleMenu}>
               <FaBars className="hover:-translate-x-3 sm:hidden transform transition-transform ease-in duration-100" />
@@ -57,6 +64,7 @@ const Navigation = () => {
           </ul>
         )}
       </nav>
+
       {isMobileMenuOpen && (
         <ul className="flex flex-col gap-2 text-sm px-16 text-white">
           <li className=" border-b border-gray-200 pb-2">
