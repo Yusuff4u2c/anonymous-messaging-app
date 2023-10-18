@@ -7,6 +7,8 @@ import {
   updateProfile,
   getAuth,
   updateEmail,
+  reauthenticateWithCredential,
+  EmailAuthCredential
 } from "firebase/auth";
 import { firebaseAuth } from "../firebase";
 import { DatabaseService } from "./DatabaseService";
@@ -80,13 +82,14 @@ export class AuthenticationService {
     }
   }
 
+  // current_email, password, new_email
   static async updateEmail(newemail) {
     try {
-      // call the function to update email
-      const user = updateEmail(firebaseAuth.currentUser, newemail);
-      // update the user profile (don't do it) updateProfile
-      console.log(user);
-      this.sendVerificationEmail();
+        // call the function to update email
+        const user = await updateEmail(firebaseAuth.currentUser, newemail);
+        // update the user profile (don't do it) updateProfile
+        console.log(user);
+        this.sendVerificationEmail();
 
       // return {
       //     email: user.email,
@@ -94,7 +97,8 @@ export class AuthenticationService {
       //     emailVerified: false,
       //     userId: user.uid
     } catch (error) {
-      throw new Error(this.parseErrors(error));
+        console.log("email change: ",error)
+    //   throw new Error(this.parseErrors(error));
     }
   }
 

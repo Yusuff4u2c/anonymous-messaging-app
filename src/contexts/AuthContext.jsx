@@ -1,4 +1,6 @@
+import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
+import { firebaseAuth } from "../libs/firebase";
 
 export const AuthContext = createContext({
   user: null,
@@ -19,11 +21,19 @@ export const AuthProvider = ({ children }) => {
     window.localStorage.removeItem("user");
   };
 
+  // useEffect(() => {
+  //   const persistedUser = window.localStorage.getItem("user");
+  //   if (persistedUser) {
+  //     setUser(JSON.parse(persistedUser));
+  //   }
+  // }, []);
+
   useEffect(() => {
-    const persistedUser = window.localStorage.getItem("user");
-    if (persistedUser) {
-      setUser(JSON.parse(persistedUser));
-    }
+    onAuthStateChanged(firebaseAuth, (user) => {
+      console.log("auth changed", user.email);
+      if (user) signUserIntoApp(user);
+      else signUserOutOfApp;
+    });
   }, []);
 
   return (
