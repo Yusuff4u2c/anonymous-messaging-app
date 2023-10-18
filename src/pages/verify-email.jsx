@@ -38,13 +38,13 @@ const VerifyEmail = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(checkIfUserIsVerified, 2000);
+  useEffect(() => {
+    const timeout = setTimeout(checkIfUserIsVerified, 2000);
 
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   };
-  // }, []);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   return (
     <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">

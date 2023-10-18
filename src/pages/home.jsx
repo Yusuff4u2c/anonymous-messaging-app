@@ -44,34 +44,40 @@ const Home = () => {
   return (
     <div>
       <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
-        <div className="bg-[#250933] flex flex-col justify-center items-center gap-8 p-10 my-4 rounded-2xl">
-          <h1 className="text-4xl text-center capitalize">
-            {user?.displayName ?? "Nil"}'s <br />
-            Profile
-          </h1>
-          <span className="flex items-center gap-1">
-            <a href={`/${user?.displayName}`} rel="noreferrer" target="_blank">
-              {appUrl}/{user?.displayName}
-            </a>
-            <FaClipboard
-              onClick={() => {
-                if (copy(`${appUrl}/${user?.displayName}`)) {
-                  toast("URL copied to clipboard");
-                }
-              }}
-              className="cursor-pointer"
-            />
-          </span>
-          <p>
-            <span className="font-bold">Share your profile link</span> ❤️ to get
-            responses from your <br /> friend. Go to
-            <span className="font-bold">"View Messages"</span> to check out the{" "}
-            <br />
-            responses.
-          </p>
-          <div className="border-b-2 flex flex-col pb-6 text-center">
+        <div className="bg-[#250933] flex flex-col justify-center items-center gap-8 p-4 sm:p-10 my-4 rounded-2xl w-[90%] sm:w-auto sm:max-w-2xl">
+          <div className="flex flex-col justify-center items-center gap-2">
+            <h1 className="text-2xl sm:text-4xl text-center capitalize">
+              {user?.displayName ?? "Nil"}'s <br />
+              Profile
+            </h1>
+            <span className="flex items-center gap-1 text-[12px]">
+              <a
+                href={`/${user?.displayName}`}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {appUrl}/{user?.displayName}
+              </a>
+              <FaClipboard
+                onClick={() => {
+                  if (copy(`${appUrl}/${user?.displayName}`)) {
+                    toast("URL copied to clipboard");
+                  }
+                }}
+                className="cursor-pointer"
+              />
+            </span>
+            <p className="text-[14px]">
+              <span className="font-bold">Share your profile link</span> ❤️ to
+              get responses from your <br /> friend. Go to
+              <span className="font-bold">"View Messages"</span> to check out
+              the <br />
+              responses.
+            </p>
+          </div>
+          <div className="border-b-2 w-full flex flex-col pb-6 text-center">
             <Link to="/messages">
-              <Button>
+              <Button className={"w-full"}>
                 <div className="flex justify-center gap-3 items-center">
                   View Messages <FaLongArrowAltRight />
                 </div>
@@ -109,9 +115,9 @@ const Home = () => {
               </a>
             </Link>
           </div>
-          <Link to="/settings">
-            <Button>
-              <div className="flex  justify-center gap-3 items-center">
+          <Link to="/settings" className="w-full">
+            <Button className={"w-full"}>
+              <div className="flex justify-center gap-3 items-center">
                 Settings <FaCogs />
               </div>
             </Button>

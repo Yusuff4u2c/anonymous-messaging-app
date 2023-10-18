@@ -2,36 +2,65 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import logoIcon from "../assets/image/logo-icon.png";
 import Button from "../components/button";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import Input from "../components/input";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AuthenticationService } from "../libs/services/AuthenticationService";
+import toast from "react-hot-toast";
 
-const ChangePassword = () => {
+const newEmailSchema = Yup.object().shape({
+  newemail: Yup.string().email("Invalid email").required("Email is required"),
+});
+
+const ChangeEmail = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      newemail: "",
+    },
+    resolver: yupResolver(newEmailSchema),
+  });
+
+  async function onSubmit(data) {
+    try {
+      AuthenticationService.updateEmail(data.newemail);
+      toast.success("Email changed");
+      console.log("sent");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
   return (
     <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
       <div className="bg-[#250933] flex flex-col justify-center items-center gap-8 p-10 my-4 rounded-2xl">
         <div>
           <img src={logoIcon} alt="" />
         </div>
-        <h1 className="text-4xl">Change Email</h1>
-        <p className="text-sm ">
-          You can update your email from here. Add your <br /> email so that you
-          can reset your password easily.
-        </p>
-        <form action="" className="border-b-2 border-[rgb(142,28,177)] pb-6">
+        <h1 className="text-4xl">Update Email</h1>
+        <p className="text-sm ">You can update your email from here.</p>
+        <form
+          action=""
+          className="border-b-2 border-[rgb(142,28,177)] pb-6"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div>
-            <label htmlFor="email">Your E-Mail</label> <br />
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder=""
-              className="outline-none bg-transparent w-[400px] pb-5 my-5 border-b-2"
-            />{" "}
+            <label htmlFor="email">Enter New Email</label> <br />
+            <Input
+              type="email"
+              id="new-email"
+              placeholder="your new email"
+              name="newemail"
+              {...register("newemail")}
+              error={errors.newemail?.message}
+            />
           </div>
 
-          <Button>
-            <div className="flex  justify-center gap-3 items-center">
-              Update Email
-            </div>
-          </Button>
+          <Button type="submit">Update Email</Button>
         </form>
         <Link to="/settings">
           <Button className=" my-3">
@@ -45,4 +74,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default ChangeEmail;

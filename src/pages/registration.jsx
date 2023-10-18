@@ -6,8 +6,6 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import Input from "../components/input";
 import { useForm } from "react-hook-form";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { firebaseApp } from "../libs/firebase";
 import { AuthenticationService } from "../libs/services/AuthenticationService";
 
 const regSchema = Yup.object().shape({
@@ -17,6 +15,7 @@ const regSchema = Yup.object().shape({
     .min(5, "password must be at least 5 characters")
     .required("password is required"),
 });
+
 const YourTurn = () => {
   return (
     <>
