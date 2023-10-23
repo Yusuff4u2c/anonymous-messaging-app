@@ -8,28 +8,40 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthenticationService } from "../libs/services/AuthenticationService";
 import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
 
 const newEmailSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string()
+    .min(5, "password must be at least 5 characters")
+    .required("password is required"),
   newemail: Yup.string().email("Invalid email").required("Email is required"),
 });
 
 const ChangeEmail = () => {
+  const { user, signUserOutOfApp } = useAuth();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm({
     defaultValues: {
+      email: user.email,
+      password: "",
       newemail: "",
     },
     resolver: yupResolver(newEmailSchema),
   });
+  const navigate = useNavigate();
 
   async function onSubmit(data) {
     try {
-      AuthenticationService.updateEmail(data.newemail);
-      toast.success("Email changed");
-      console.log("sent");
+      AuthenticationService.updateEmail(data);
+      AuthenticationService.logout();
+      signUserOutOfApp();
+
+      toast.success("Email changed. You are required to login again");
+      navigate("/login");
     } catch (error) {
       toast.error(error.message);
     }
@@ -48,6 +60,30 @@ const ChangeEmail = () => {
           className="border-b-2 border-[rgb(142,28,177)] pb-6"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <div>
+            <label htmlFor="email">Current Email</label> <br />
+            <Input
+              type="email"
+              id="new-email"
+              placeholder="your current email"
+              name="email"
+              {...register("email")}
+              error={errors.email?.message}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email">Password</label> <br />
+            <Input
+              type="password"
+              id="password"
+              placeholder="password"
+              name="password"
+              {...register("password")}
+              error={errors.password?.message}
+            />
+          </div>
+
           <div>
             <label htmlFor="email">Enter New Email</label> <br />
             <Input

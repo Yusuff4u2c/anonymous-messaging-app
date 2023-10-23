@@ -8,7 +8,8 @@ import {
   getAuth,
   updateEmail,
   reauthenticateWithCredential,
-  EmailAuthCredential
+  EmailAuthProvider,
+  verifyBeforeUpdateEmail
 } from "firebase/auth";
 import { firebaseAuth } from "../firebase";
 import { DatabaseService } from "./DatabaseService";
@@ -83,22 +84,21 @@ export class AuthenticationService {
   }
 
   // current_email, password, new_email
-  static async updateEmail(newemail) {
+  static async updateEmail({email, password, newemail}) {
     try {
-        // call the function to update email
-        const user = await updateEmail(firebaseAuth.currentUser, newemail);
-        // update the user profile (don't do it) updateProfile
-        console.log(user);
-        this.sendVerificationEmail();
+      // reauthentication
+      const credentials = EmailAuthProvider.credential(email, password);
+      console.log("provider credentials :::: ", credentials.providerId)
+      
+      const result = await reauthenticateWithCredential(firebaseAuth.currentUser, credentials);
+      console.log("reauth result user :::: ", result.user)
+      
+      // call the function to update email
+      await verifyBeforeUpdateEmail(firebaseAuth.currentUser, newemail);
 
-      // return {
-      //     email: user.email,
-      //     displayName: user.displayName,
-      //     emailVerified: false,
-      //     userId: user.uid
     } catch (error) {
-        console.log("email change: ",error)
-    //   throw new Error(this.parseErrors(error));
+      console.log("email update error :::: ", error)
+      throw new Error(this.parseErrors(error));
     }
   }
 

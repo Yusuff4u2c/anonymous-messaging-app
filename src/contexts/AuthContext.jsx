@@ -13,12 +13,12 @@ export const AuthProvider = ({ children }) => {
 
   const signUserIntoApp = (user) => {
     setUser(user);
-    window.localStorage.setItem("user", JSON.stringify(user));
+    // window.localStorage.setItem("user", JSON.stringify(user));
   };
 
   const signUserOutOfApp = () => {
     setUser(null);
-    window.localStorage.removeItem("user");
+    // window.localStorage.removeItem("user");
   };
 
   // useEffect(() => {
