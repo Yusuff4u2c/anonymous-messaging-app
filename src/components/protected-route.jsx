@@ -5,6 +5,8 @@ const ProtectedRoute = () => {
   const { user } = useAuth();
   const location = useLocation(); // "/messages"
 
+  // if its still loading
+
   if (!user) {
     return (
       <Navigate to="/login" replace={true} state={{ referrer: location }} />

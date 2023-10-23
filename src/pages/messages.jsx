@@ -28,6 +28,7 @@ function Messages() {
   const [paragraphVisibility, setParagraphVisibility] = useState(false);
   const { user } = useAuth();
   const [messageDetails, setMessageDetails] = useState([]);
+  const [render, setRender] = useState(0);
 
   useEffect(() => {
     const fetchMessages = async () => {
