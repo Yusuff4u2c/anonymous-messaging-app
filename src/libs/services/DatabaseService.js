@@ -39,7 +39,6 @@ export class DatabaseService {
       querySnapshot.forEach((doc) => {
         userData = doc.data();
       });
-      console.log(userData);
       return userData;
     } catch (error) {
       console.log("database error: ", error);

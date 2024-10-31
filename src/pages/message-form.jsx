@@ -39,7 +39,7 @@ function NonUser({ username }) {
 
 const MessageForm = () => {
   const { username } = useParams();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -77,6 +77,8 @@ const MessageForm = () => {
 
   async function checkUser() {
     const user = await DatabaseService.fetchUser(username);
+    console.log(user);
+
     setUser(user);
     setLoading(false);
   }

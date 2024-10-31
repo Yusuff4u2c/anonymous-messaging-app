@@ -32,8 +32,10 @@ function Messages() {
 
   useEffect(() => {
     const fetchMessages = async () => {
-      setMessageDetails(await DatabaseService.fetchMessages(user.userId));
+      setMessageDetails(await DatabaseService.fetchMessages(user.uid));
     };
+    console.log(user);
+
     fetchMessages();
   }, []);
 

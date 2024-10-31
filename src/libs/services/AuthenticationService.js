@@ -9,7 +9,7 @@ import {
   updateEmail,
   reauthenticateWithCredential,
   EmailAuthProvider,
-  verifyBeforeUpdateEmail
+  verifyBeforeUpdateEmail,
 } from "firebase/auth";
 import { firebaseAuth } from "../firebase";
 import { DatabaseService } from "./DatabaseService";
@@ -17,7 +17,6 @@ import { DatabaseService } from "./DatabaseService";
 export class AuthenticationService {
   static getUser() {
     const user = getAuth().currentUser;
-
     return {
       email: user.email,
       displayName: user.displayName,
@@ -84,20 +83,22 @@ export class AuthenticationService {
   }
 
   // current_email, password, new_email
-  static async updateEmail({email, password, newemail}) {
+  static async updateEmail({ email, password, newemail }) {
     try {
       // reauthentication
       const credentials = EmailAuthProvider.credential(email, password);
-      console.log("provider credentials :::: ", credentials.providerId)
-      
-      const result = await reauthenticateWithCredential(firebaseAuth.currentUser, credentials);
-      console.log("reauth result user :::: ", result.user)
-      
+      console.log("provider credentials :::: ", credentials.providerId);
+
+      const result = await reauthenticateWithCredential(
+        firebaseAuth.currentUser,
+        credentials
+      );
+      console.log("reauth result user :::: ", result.user);
+
       // call the function to update email
       await verifyBeforeUpdateEmail(firebaseAuth.currentUser, newemail);
-
     } catch (error) {
-      console.log("email update error :::: ", error)
+      console.log("email update error :::: ", error);
       throw new Error(this.parseErrors(error));
     }
   }

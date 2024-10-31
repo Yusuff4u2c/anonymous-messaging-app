@@ -19,6 +19,7 @@ const Home = () => {
   const appUrl = import.meta.env.VITE_APP_URL;
   const [, copy] = useCopyToClipboard();
   const userUrl = `${appUrl}/${user?.displayName}`;
+  console.log(appUrl, userUrl);
 
   const handleClick = (platform) => {
     const defaultMessage =

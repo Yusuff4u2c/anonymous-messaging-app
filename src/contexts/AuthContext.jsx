@@ -32,12 +32,13 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // loading should be true
+    setLoading(true);
     const unSubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      console.log("auth changed", user.email);
       if (user) signUserIntoApp(user);
       else signUserOutOfApp;
 
       // loading should be false
+      setLoading(false);
     });
 
     return () => {
