@@ -40,7 +40,7 @@ const MessageForm = () => {
   const { username } = useParams();
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [fetchedUser, setFetchedUser] = useState(null);
+  const [fetchedUser, setFetchedUser] = useState(undefined);
   const navigate = useNavigate();
   const { signUserOutOfApp, user } = useAuth();
 
@@ -65,7 +65,6 @@ const MessageForm = () => {
       setProcessing(true);
       await DatabaseService.saveMessage(message, fetchedUser.uid);
       setMessage("");
-      // messageSubmitted state
       toast.success("Your response has been saved anonymously");
       signUserOutOfApp();
       navigate("/register?referrer=message-form");
@@ -87,14 +86,15 @@ const MessageForm = () => {
     }
     setLoading(true);
     checkUser().finally(() => setLoading(false));
+    console.log(fetchedUser);
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading || fetchedUser === undefined) return <div>Loading...</div>;
 
   return (
     <div className="flex justify-center items-center text-white bg-gradient-to-r from-[rgb(167,49,167)] from-25% to-[#7a4cc4]">
       <div className="bg-[#250933] flex flex-col justify-center items-center gap-4 p-10 my-4 rounded-2xl">
-        {!fetchedUser && <NonUser username={username} />}
+        {fetchedUser === null && <NonUser username={username} />}
 
         {fetchedUser && (
           <>
@@ -138,7 +138,6 @@ const MessageForm = () => {
               members, and anyone you know who are on HushHive. We care about
               our users and thus we are suggesting what you may choose to tell
               them anonymously.
-              {/* Additional guide text omitted for brevity */}
             </p>
           </>
         )}
