@@ -52,7 +52,6 @@ const YourTurn = () => {
 const Registration = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  console.log(searchParams.get("referrer"));
   const {
     handleSubmit,
     register,
@@ -89,7 +88,7 @@ const Registration = () => {
         </div>
 
         <h1 className="text-4xl">Register</h1>
-        {searchParams.get("referrer") && <YourTurn />}
+        {searchParams.get("referrer") === "message-form" && <YourTurn />}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-5">
             <label htmlFor="user-name" className="block mb-2  ">
